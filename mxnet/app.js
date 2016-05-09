@@ -76,7 +76,6 @@ function preproc(url, targetLen, meanimg, callback) {
 function start() {
 
    $.getJSON("fastpoor.json", function(model) {
-       logEvent("Hello world");
        var url = document.getElementById("image1").src;
        pred = new Predictor(model, {'data': [1, 3, 224, 224]});
        preproc(url, 224, pred.meanimg,  function(nd) {
@@ -117,6 +116,7 @@ function start() {
               for (var i = 0; i < max_output; i++) {
                 logEvent('Top-' + (i+1) + ':' + model.synset[index[i]] + ', value=' + out.data[index[i]]);
               }
+	      logEvent('--------------------------------------------');
               pred.destroy();
            });
        });
