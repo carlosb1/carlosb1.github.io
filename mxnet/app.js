@@ -75,7 +75,8 @@ function preproc(url, targetLen, meanimg, callback) {
 
 function start() {
 
-   $.getJSON("fastpoor.json", function(model) {
+//$.getJSON("fastpoor.json", function(model) {
+   $.getJSON("google_net.json", function(model) {
        var url = document.getElementById("image1").src;
        pred = new Predictor(model, {'data': [1, 3, 224, 224]});
        preproc(url, 224, pred.meanimg,  function(nd) {
