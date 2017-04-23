@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator>
+  
+  
+  <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
+  <updated>2017-04-23T02:04:41+02:00</updated>
+  <id>http://localhost:4000//</id>
+
+  
+    <title type="html">Personal blog</title>
+  
+
+  
+    <subtitle>My personal web to describe my projects, ideas and motivations.
+</subtitle>
+  
+
+  
+
+  
+  
+    <entry>
+      
+      <title type="html">Recipe: Thread safe queue</title>
+      
+      <link href="http://localhost:4000/2017/04/22/recipe-thread-safe-queue/" rel="alternate" type="text/html" title="Recipe:  Thread safe queue" />
+      <published>2017-04-22T01:06:05+02:00</published>
+      <updated>2017-04-22T01:06:05+02:00</updated>
+      <id>http://localhost:4000/2017/04/22/recipe-thread-safe-queue</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/22/recipe-thread-safe-queue/">&lt;p&gt;The C++11 queue implementation is not thread safe… It is a common requeriment to have a concurrent access in a C++ queue, the most simple option is the implementation of a
+decorator pattern and it adds two new operations to synchronize the access&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/8b806b9b9bb2a6914ee7.js&quot;&gt;&lt;/script&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="cpp" />
+      
+
+      
+
+      
+        <summary type="html">The C++11 queue implementation is not thread safe… It is a common requeriment to have a concurrent access in a C++ queue, the most simple option is the implementation of a decorator pattern and it adds two new operations to synchronize the access</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Recipe: My VIM configuration</title>
+      
+      <link href="http://localhost:4000/2017/04/22/recipe-my-vim-configuration/" rel="alternate" type="text/html" title="Recipe: My VIM configuration" />
+      <published>2017-04-22T01:06:05+02:00</published>
+      <updated>2017-04-22T01:06:05+02:00</updated>
+      <id>http://localhost:4000/2017/04/22/recipe-my-vim-configuration</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/22/recipe-my-vim-configuration/">&lt;p&gt;Few years ago, I was trying to choose a IDE to work with C++ and Python, but any environment convinced me…. Finally, i configured me VIM editor with Vundle.. It works very well and simple. &amp;lt;/p&amp;gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/b71924fc02a37ef27020.js&quot;&gt;&lt;/script&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="vim" />
+      
+
+      
+
+      
+        <summary type="html">Few years ago, I was trying to choose a IDE to work with C++ and Python, but any environment convinced me…. Finally, i configured me VIM editor with Vundle.. It works very well and simple. &amp;lt;/p&amp;gt;</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Recipe: Active Object pattern for C++ part1</title>
+      
+      <link href="http://localhost:4000/2017/04/22/recipe-active-object-pattern-for-c-part1/" rel="alternate" type="text/html" title="Recipe: Active Object pattern for C++ part1" />
+      <published>2017-04-22T01:06:05+02:00</published>
+      <updated>2017-04-22T01:06:05+02:00</updated>
+      <id>http://localhost:4000/2017/04/22/recipe-active-object-pattern-for-c-part1</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/22/recipe-active-object-pattern-for-c-part1/">&lt;p&gt;It is the first solution for the active object pattern in C++11, it permits encapsulate the thread management in a different object.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/6ca0ac91a4e0c74ba7b02702ec76d7bd.js&quot;&gt;&lt;/script&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="cpp" />
+      
+
+      
+
+      
+        <summary type="html">It is the first solution for the active object pattern in C++11, it permits encapsulate the thread management in a different object.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Kakuro Solver</title>
+      
+      <link href="http://localhost:4000/2017/04/22/kakuro-solver/" rel="alternate" type="text/html" title="Kakuro Solver" />
+      <published>2017-04-22T01:06:05+02:00</published>
+      <updated>2017-04-22T01:06:05+02:00</updated>
+      <id>http://localhost:4000/2017/04/22/kakuro-solver</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/22/kakuro-solver/">&lt;p&gt;These days, I decided to refresh my Python and algorithm knownledge. For this reason, I looked for some algorithms problems.. 
+Finally, I liked one from Reddit, &lt;a href=&quot;https://www.reddit.com/r/dailyprogrammer/comments/3g2tby/20150807_challenge_226_hard_kakuro_solver/&quot;&gt;the kakuro problem&lt;/a&gt; and this is my solution.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/898857e94bbbb9ae50ec.js&quot;&gt;&lt;/script&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="python" />
+      
+
+      
+
+      
+        <summary type="html">These days, I decided to refresh my Python and algorithm knownledge. For this reason, I looked for some algorithms problems.. Finally, I liked one from Reddit, the kakuro problem and this is my solution.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Challenge: Reader and writer problem</title>
+      
+      <link href="http://localhost:4000/2017/04/22/challenge-reader-and-writer-problem/" rel="alternate" type="text/html" title="Challenge: Reader and writer problem" />
+      <published>2017-04-22T01:06:05+02:00</published>
+      <updated>2017-04-22T01:06:05+02:00</updated>
+      <id>http://localhost:4000/2017/04/22/challenge-reader-and-writer-problem</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/22/challenge-reader-and-writer-problem/">&lt;p&gt;Solution for the reader and writer concurrency problem
+&lt;script src=&quot;https://gist.github.com/carlosb1/8594319fec29679c39bae9a914cf6548.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="cpp" />
+      
+
+      
+
+      
+        <summary type="html">Solution for the reader and writer concurrency problem</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Challenge: Find all possible words from a random input of letters</title>
+      
+      <link href="http://localhost:4000/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters/" rel="alternate" type="text/html" title="Challenge: Find all possible words from a random input of letters" />
+      <published>2017-04-22T01:06:05+02:00</published>
+      <updated>2017-04-22T01:06:05+02:00</updated>
+      <id>http://localhost:4000/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters/">&lt;p&gt;Sometimes, I will try to practise my kungfu code with problems… This is an exercise to find all possible words from a random number of letters
+&lt;script src=&quot;https://gist.github.com/carlosb1/4fd9cf09634ff07dff57e90d197c2bc5.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="python" />
+      
+
+      
+
+      
+        <summary type="html">Sometimes, I will try to practise my kungfu code with problems… This is an exercise to find all possible words from a random number of letters</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
+      <title type="html">Presentation</title>
+      
+      <link href="http://localhost:4000/2017/04/21/welcome-to-jekyll/" rel="alternate" type="text/html" title="Presentation" />
+      <published>2017-04-21T01:06:05+02:00</published>
+      <updated>2017-04-21T01:06:05+02:00</updated>
+      <id>http://localhost:4000/2017/04/21/welcome-to-jekyll</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/21/welcome-to-jekyll/">&lt;p&gt;This is my blog. It is a journal to talk about all things which interested me, my hobbies and ideas.&lt;/p&gt;
+
+&lt;p&gt;Carlos&lt;/p&gt;
+
+&lt;!--
+You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+
+To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+
+Jekyll also offers powerful support for code snippets:
+
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/
+
+--&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="presentation" />
+      
+
+      
+
+      
+        <summary type="html">This is my blog. It is a journal to talk about all things which interested me, my hobbies and ideas.</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+</feed>

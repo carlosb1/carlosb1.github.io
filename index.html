@@ -1,87 +1,314 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Personal web page</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  </head>
+  
+  
+  
+  <title>Personal blog</title>
+  <meta name="description" content="My personal web to describe my projects, ideas and motivations.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Personal blog" href="http://localhost:4000/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="mcflurry0">
+  <meta name="twitter:title" content="Personal blog">
+  <meta name="twitter:description" content="My personal web to describe my projects, ideas and motivations.">
+  
+    <meta name="twitter:creator" content="mcflurry0">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+
+</head>
+
+
   <body>
-      <div id="header">
-<!--
-          <nav>
-                <li class="title"><h3><bold><a href="https://github.com/carlosb1">My projects</a></bold></h3></li>
-          </nav>
-	  -->
-  </div> 
-    <div class="wrapper">        
-      <section>
-        <div id="title">
-          <h1>Personal web</h1>
-          <p>Projects and ideas</p>
-          <hr>
-          <span class="credits right"> contact email: carlos.baezruiz@gmail.com </span>
-<!--          <span class="credits right">Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span> 
--->
-        </div>
-     
 
-        <h1>Recipe: Active Object pattern for C++ part1 </h1>
-        <p> It is the first solution for the active object pattern in C++11, it permits encapsulate the thread management in a different object.</p>
-	<script src="https://gist.github.com/carlosb1/6ca0ac91a4e0c74ba7b02702ec76d7bd.js"></script>
+    <header class="site-header">
 
-        <h1>Challenge: Reader and writer problem</h1>
-        <p> Solution for the reader and writer concurrency problem</p>
-	<script src="https://gist.github.com/carlosb1/8594319fec29679c39bae9a914cf6548.js"></script> 
-            
-	<h1>Challenge: Find all possible words from a random input of letters</h1>
-        <p> Sometimes, I will try to practise my kungfu code with problems... This is an exercise to find all possible words from a random number of letters</p>
-        <script src="https://gist.github.com/carlosb1/4fd9cf09634ff07dff57e90d197c2bc5.js"></script>
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Personal blog</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/carlosb1">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="home">
+
+  
+
+  
+
+  <ul class="post-list">
     
-          
-        <h1>Recipe: My VIM configuration</h1>
-        <p> Few years ago, I was trying to choose a IDE to work with C++ and Python, but any environment convinced me.... Finally, i 
-         convigured me VIM editor with Vundle.. It works very fine and elegantly. </p>
-        <script src="https://gist.github.com/carlosb1/b71924fc02a37ef27020.js"></script>
+      
+      
 
-          
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/04/22/recipe-thread-safe-queue/">Recipe:  Thread safe queue</a>
+          </h1>
 
-        <h1>Recipe:  Thread safe queue</h1>
-        <p> The C++11 queue implementation is not thread safe... It is a common requeriment to have a concurrent access in a C++ queue, the most simple option is the implementation of a
-          decorator pattern and it adds two new operations to synchronize the access</p>
-        <script src="https://gist.github.com/carlosb1/8b806b9b9bb2a6914ee7.js"></script>
-          
-        <h1>Challenge: Kakuro solver</h1>
-        <p>These last days, I decided to refresh my Python and algorithm knownledge. For this reason, I looked 
-	for some algorithms problems.. Finally, I found in Reddit, <a href="https://www.reddit.com/r/dailyprogrammer/comments/3g2tby/20150807_challenge_226_hard_kakuro_solver/">the kakuro problem</a></p>
-	<p> And this is my solution </p>
+          <p class="post-meta">Apr 22, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/cpp/">cpp</a>
+    
+  
+    
+  
 
-	<script src="https://gist.github.com/carlosb1/898857e94bbbb9ae50ec.js"></script>
-	</p>
-	<p> Most of the code, it is a parser to get the program parameters from the input files. The interesting part is the function <code>backtracking</code>, it implements <a href="https://en.wikipedia.org/wiki/Backtracking">a backtracking algorithm </a>
-	</p>
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>The C++11 queue implementation is not thread safe… It is a common requeriment to have a concurrent access in a C++ queue, the most simple option is the implementation of a
+decorator pattern and it adds two new operations to synchronize the access</p>
 
 
-        <h1>Presentation</h1>
-        <p>This is my blog. It is a journal to talk about all things which interested me, my hobbies and ideas.</p>
-	<p> Carlos </p>
+        </div>
+        
+          <p class="post-continue">
+            <a href="/2017/04/22/recipe-thread-safe-queue/">Read on &rarr;</a>
+          </p>
+        
+      </li>
+    
+      
+      
 
-        <h3>Lighthouse</h3>
-        <p><img src="images/faro.jpg" alt="Lighthouse Tarragona"></p>
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/04/22/recipe-my-vim-configuration/">Recipe: My VIM configuration</a>
+          </h1>
 
-      </section>
-    </div>
+          <p class="post-meta">Apr 22, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+  
+    
+      <a href="/categories/vim/">vim</a>
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Few years ago, I was trying to choose a IDE to work with C++ and Python, but any environment convinced me…. Finally, i configured me VIM editor with Vundle.. It works very well and simple. &lt;/p&gt;</p>
+
+
+        </div>
+        
+          <p class="post-continue">
+            <a href="/2017/04/22/recipe-my-vim-configuration/">Read on &rarr;</a>
+          </p>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/04/22/recipe-active-object-pattern-for-c-part1/">Recipe: Active Object pattern for C++ part1</a>
+          </h1>
+
+          <p class="post-meta">Apr 22, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/cpp/">cpp</a>
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>It is the first solution for the active object pattern in C++11, it permits encapsulate the thread management in a different object.</p>
+
+
+        </div>
+        
+          <p class="post-continue">
+            <a href="/2017/04/22/recipe-active-object-pattern-for-c-part1/">Read on &rarr;</a>
+          </p>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/04/22/kakuro-solver/">Kakuro Solver</a>
+          </h1>
+
+          <p class="post-meta">Apr 22, 2017 • 
+  
+  
+    
+  
+    
+      <a href="/categories/python/">python</a>
+    
+  
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>These days, I decided to refresh my Python and algorithm knownledge. For this reason, I looked for some algorithms problems.. 
+Finally, I liked one from Reddit, <a href="https://www.reddit.com/r/dailyprogrammer/comments/3g2tby/20150807_challenge_226_hard_kakuro_solver/">the kakuro problem</a> and this is my solution.</p>
+
+
+        </div>
+        
+          <p class="post-continue">
+            <a href="/2017/04/22/kakuro-solver/">Read on &rarr;</a>
+          </p>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            <a class="post-link" href="/2017/04/22/challenge-reader-and-writer-problem/">Challenge: Reader and writer problem</a>
+          </h1>
+
+          <p class="post-meta">Apr 22, 2017 • 
+  
+  
+    
+  
+    
+  
+    
+      <a href="/categories/cpp/">cpp</a>
+    
+  
+    
+  
+
+</p>
+        </header>
+
+        <div class="post-content">
+          <p>Solution for the reader and writer concurrency problem
+<script src="https://gist.github.com/carlosb1/8594319fec29679c39bae9a914cf6548.js"></script></p>
+
+        </div>
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="pagination">
+    
+      <a class="previous" href="/posts/2/">&laquo; Older</a>
+    
+
+    
+  </div>
+
+
+
+</div>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
   </body>
+
 </html>
-    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
