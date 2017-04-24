@@ -9,12 +9,12 @@
   
   
   
-  <title>cpp</title>
-  <meta name="description" content="My personal web to describe my projects, ideas and motivations.">
+  <title>Double checked problem for concurrency</title>
+  <meta name="description" content="This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects link">
   
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/categories/cpp/">
+  <link rel="canonical" href="http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency/">
   
   
   <link rel="alternate" type="application/rss+xml" title="Personal blog" href="http://localhost:4000/feed.xml">
@@ -24,8 +24,8 @@
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="mcflurry0">
-  <meta name="twitter:title" content="cpp">
-  <meta name="twitter:description" content="My personal web to describe my projects, ideas and motivations.">
+  <meta name="twitter:title" content="Double checked problem for concurrency">
+  <meta name="twitter:description" content="This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects link">
   
     <meta name="twitter:creator" content="mcflurry0">
   
@@ -79,19 +79,13 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1 class="page-heading">Archive of category 'cpp'</h1>
-
-  
-
-  <ul class="post-archives">
+  <header class="post-header">
     
-      
-      
-
-      <li>
-        <span class="post-meta">Apr 25, 2017 • 
+      <h1 class="post-title" itemprop="name headline">Double checked problem for concurrency</h1>
+    
+    <p class="post-meta"><time datetime="2017-04-25T00:00:00+02:00" itemprop="datePublished">Apr 25, 2017</time> • 
   
   
     
@@ -105,91 +99,25 @@
     
   
 
-</span>
+</p>
+  </header>
 
-        <h2>
-          <a class="post-link" href="/2017/04/25/double-checked-problem-for-concurrency/">Double checked problem for concurrency</a>
-        </h2>
-      </li>
-    
-      
-      
+  <div class="post-content" itemprop="articleBody">
+    <p>This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects <a href="https://app.box.com/s/t7kvebv4p8yiu5jfrr69ldujs7rqzdlw">link</a></p>
 
-      <li>
-        <span class="post-meta">Apr 22, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/cpp/">cpp</a>
-    
-  
-    
-  
+<p>The problem is explained with a Singleton pattern implemention (without smart pointers):</p>
 
-</span>
+<script src="https://gist.github.com/carlosb1/98008c218aa3ec367d563e2932136b3c.js"></script>
 
-        <h2>
-          <a class="post-link" href="/2017/04/22/recipe-thread-safe-queue/">Recipe:  Thread safe queue</a>
-        </h2>
-      </li>
-    
-      
-      
+<p>The problem how to evaluate the critical section efficiently. For this, it is necessary take care our blocking threads are trying to access to the critical session
+in a different time and ‘software state’ where in this state is possible has initialized our critical resource. The solution is:</p>
 
-      <li>
-        <span class="post-meta">Apr 22, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/cpp/">cpp</a>
-    
-  
-    
-  
+<script src="https://gist.github.com/carlosb1/1ecb788fa7bfae316c2cbd7f4054e64c.js"></script>
 
-</span>
 
-        <h2>
-          <a class="post-link" href="/2017/04/22/recipe-active-object-pattern-for-c-part1/">Recipe: Active Object pattern for C++ part1</a>
-        </h2>
-      </li>
-    
-      
-      
+  </div>
 
-      <li>
-        <span class="post-meta">Apr 22, 2017 • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/cpp/">cpp</a>
-    
-  
-    
-  
-
-</span>
-
-        <h2>
-          <a class="post-link" href="/2017/04/22/challenge-reader-and-writer-problem/">Challenge: Reader and writer problem</a>
-        </h2>
-      </li>
-    
-  </ul>
-
-</div>
+</article>
 
       </div>
     </main>

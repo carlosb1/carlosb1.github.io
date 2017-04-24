@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2017-04-23T02:19:01+02:00</updated>
+  <updated>2017-04-25T00:12:54+02:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -19,6 +19,49 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Double checked problem for concurrency</title>
+      
+      <link href="http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency/" rel="alternate" type="text/html" title="Double checked problem for concurrency" />
+      <published>2017-04-25T00:00:00+02:00</published>
+      <updated>2017-04-25T00:00:00+02:00</updated>
+      <id>http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency/">&lt;p&gt;This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects &lt;a href=&quot;https://app.box.com/s/t7kvebv4p8yiu5jfrr69ldujs7rqzdlw&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The problem is explained with a Singleton pattern implemention (without smart pointers):&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/98008c218aa3ec367d563e2932136b3c.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;The problem how to evaluate the critical section efficiently. For this, it is necessary take care our blocking threads are trying to access to the critical session
+in a different time and ‘software state’ where in this state is possible has initialized our critical resource. The solution is:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/1ecb788fa7bfae316c2cbd7f4054e64c.js&quot;&gt;&lt;/script&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="cpp" />
+      
+
+      
+
+      
+        <summary type="html">This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects link</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
