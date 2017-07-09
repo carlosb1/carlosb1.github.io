@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2017-07-03T00:04:53+02:00</updated>
+  <updated>2017-07-09T22:44:00+02:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -19,6 +19,43 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Game of life kata in Rust</title>
+      
+      <link href="http://localhost:4000/2017/07/09/game-of-life-kata-in-rust/" rel="alternate" type="text/html" title="Game of life kata in Rust" />
+      <published>2017-07-09T01:06:05+02:00</published>
+      <updated>2017-07-09T01:06:05+02:00</updated>
+      <id>http://localhost:4000/2017/07/09/game-of-life-kata-in-rust</id>
+      <content type="html" xml:base="http://localhost:4000/2017/07/09/game-of-life-kata-in-rust/">&lt;p&gt;In my free time, I am learning rust. To improve, It is a good exercise to implement some katas in this language. In this
+case I implemented the first part (without resurrections) of the Game of life:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/b230a3b67537f2e7a3ebf8a323231f50.js&quot;&gt;&lt;/script&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="rust" />
+      
+
+      
+
+      
+        <summary type="html">In my free time, I am learning rust. To improve, It is a good exercise to implement some katas in this language. In this case I implemented the first part (without resurrections) of the Game of life:</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>

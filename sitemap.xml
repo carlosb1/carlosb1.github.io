@@ -37,6 +37,10 @@
 <lastmod>2017-07-02T01:06:05+02:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/2017/07/09/game-of-life-kata-in-rust/</loc>
+<lastmod>2017-07-09T01:06:05+02:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/about/</loc>
 </url>
 <url>
@@ -56,6 +60,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/categories/vim/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/categories/rust/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/posts/2/</loc>
