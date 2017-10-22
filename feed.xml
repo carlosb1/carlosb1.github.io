@@ -3,10 +3,10 @@
   <generator uri="http://jekyllrb.com" version="3.4.3">Jekyll</generator>
   
   
-  <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2017-07-09T22:44:00+02:00</updated>
-  <id>http://localhost:4000//</id>
+  <link href="https://carlosb1.github.io/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://carlosb1.github.io/" rel="alternate" type="text/html" />
+  <updated>2017-10-23T01:07:17+02:00</updated>
+  <id>https://carlosb1.github.io//</id>
 
   
     <title type="html">Personal blog</title>
@@ -23,13 +23,49 @@
   
     <entry>
       
+      <title type="html">Flyweight pattern</title>
+      
+      <link href="https://carlosb1.github.io/2017/10/23/flyweight-pattern/" rel="alternate" type="text/html" title="Flyweight pattern" />
+      <published>2017-10-23T00:59:05+02:00</published>
+      <updated>2017-10-23T00:59:05+02:00</updated>
+      <id>https://carlosb1.github.io/2017/10/23/flyweight-pattern</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/10/23/flyweight-pattern/">&lt;p&gt;Implementation of the flyweight pattern. It permits decoupling the changing data from the static data (value objects) in instances  to improve the performance in our design:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/5433a096d33e285ba89a5856646bdb78.js&quot;&gt;&lt;/script&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="cpp" />
+      
+
+      
+
+      
+        <summary type="html">Implementation of the flyweight pattern. It permits decoupling the changing data from the static data (value objects) in instances to improve the performance in our design:</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Game of life kata in Rust</title>
       
-      <link href="http://localhost:4000/2017/07/09/game-of-life-kata-in-rust/" rel="alternate" type="text/html" title="Game of life kata in Rust" />
+      <link href="https://carlosb1.github.io/2017/07/09/game-of-life-kata-in-rust/" rel="alternate" type="text/html" title="Game of life kata in Rust" />
       <published>2017-07-09T01:06:05+02:00</published>
       <updated>2017-07-09T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/07/09/game-of-life-kata-in-rust</id>
-      <content type="html" xml:base="http://localhost:4000/2017/07/09/game-of-life-kata-in-rust/">&lt;p&gt;In my free time, I am learning rust. To improve, It is a good exercise to implement some katas in this language. In this
+      <id>https://carlosb1.github.io/2017/07/09/game-of-life-kata-in-rust</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/07/09/game-of-life-kata-in-rust/">&lt;p&gt;In my free time, I am learning rust. To improve, It is a good exercise to implement some katas in this language. In this
 case I implemented the first part (without resurrections) of the Game of life:&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/carlosb1/b230a3b67537f2e7a3ebf8a323231f50.js&quot;&gt;&lt;/script&gt;</content>
@@ -62,11 +98,11 @@ case I implemented the first part (without resurrections) of the Game of life:&l
       
       <title type="html">Skeleton scrapper python</title>
       
-      <link href="http://localhost:4000/2017/07/02/skeleton-scrapper-python/" rel="alternate" type="text/html" title="Skeleton scrapper python" />
+      <link href="https://carlosb1.github.io/2017/07/02/skeleton-scrapper-python/" rel="alternate" type="text/html" title="Skeleton scrapper python" />
       <published>2017-07-02T01:06:05+02:00</published>
       <updated>2017-07-02T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/07/02/skeleton-scrapper-python</id>
-      <content type="html" xml:base="http://localhost:4000/2017/07/02/skeleton-scrapper-python/">&lt;p&gt;I just finish to type an scrapper example. Now, it is very simple version, but it seems works fine and it include a good test coverage.&lt;/p&gt;
+      <id>https://carlosb1.github.io/2017/07/02/skeleton-scrapper-python</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/07/02/skeleton-scrapper-python/">&lt;p&gt;I just finish to type an scrapper example. Now, it is very simple version, but it seems works fine and it include a good test coverage.&lt;/p&gt;
 
 &lt;p&gt;My idea is add:&lt;/p&gt;
 &lt;ul&gt;
@@ -106,11 +142,11 @@ case I implemented the first part (without resurrections) of the Game of life:&l
       
       <title type="html">Double checked problem for concurrency</title>
       
-      <link href="http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency/" rel="alternate" type="text/html" title="Double checked problem for concurrency" />
+      <link href="https://carlosb1.github.io/2017/04/25/double-checked-problem-for-concurrency/" rel="alternate" type="text/html" title="Double checked problem for concurrency" />
       <published>2017-04-25T00:00:00+02:00</published>
       <updated>2017-04-25T00:00:00+02:00</updated>
-      <id>http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency</id>
-      <content type="html" xml:base="http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency/">&lt;p&gt;This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects &lt;a href=&quot;https://app.box.com/s/t7kvebv4p8yiu5jfrr69ldujs7rqzdlw&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+      <id>https://carlosb1.github.io/2017/04/25/double-checked-problem-for-concurrency</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/04/25/double-checked-problem-for-concurrency/">&lt;p&gt;This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects &lt;a href=&quot;https://app.box.com/s/t7kvebv4p8yiu5jfrr69ldujs7rqzdlw&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The problem is explained with a Singleton pattern implemention (without smart pointers):&lt;/p&gt;
 
@@ -149,11 +185,11 @@ in a different time and ‘software state’ where in this state is possible has
       
       <title type="html">Recipe: Thread safe queue</title>
       
-      <link href="http://localhost:4000/2017/04/22/recipe-thread-safe-queue/" rel="alternate" type="text/html" title="Recipe:  Thread safe queue" />
+      <link href="https://carlosb1.github.io/2017/04/22/recipe-thread-safe-queue/" rel="alternate" type="text/html" title="Recipe:  Thread safe queue" />
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/04/22/recipe-thread-safe-queue</id>
-      <content type="html" xml:base="http://localhost:4000/2017/04/22/recipe-thread-safe-queue/">&lt;p&gt;The C++11 queue implementation is not thread safe… It is a common requeriment to have a concurrent access in a C++ queue, the most simple option is the implementation of a
+      <id>https://carlosb1.github.io/2017/04/22/recipe-thread-safe-queue</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/04/22/recipe-thread-safe-queue/">&lt;p&gt;The C++11 queue implementation is not thread safe… It is a common requeriment to have a concurrent access in a C++ queue, the most simple option is the implementation of a
 decorator pattern and it adds two new operations to synchronize the access&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/carlosb1/8b806b9b9bb2a6914ee7.js&quot;&gt;&lt;/script&gt;</content>
@@ -186,11 +222,11 @@ decorator pattern and it adds two new operations to synchronize the access&lt;/p
       
       <title type="html">Recipe: My VIM configuration</title>
       
-      <link href="http://localhost:4000/2017/04/22/recipe-my-vim-configuration/" rel="alternate" type="text/html" title="Recipe: My VIM configuration" />
+      <link href="https://carlosb1.github.io/2017/04/22/recipe-my-vim-configuration/" rel="alternate" type="text/html" title="Recipe: My VIM configuration" />
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/04/22/recipe-my-vim-configuration</id>
-      <content type="html" xml:base="http://localhost:4000/2017/04/22/recipe-my-vim-configuration/">&lt;p&gt;Few years ago, I was trying to choose a IDE to work with C++ and Python, but any environment convinced me…. Finally, i configured me VIM editor with Vundle.. It works very well and simple.&lt;/p&gt;
+      <id>https://carlosb1.github.io/2017/04/22/recipe-my-vim-configuration</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/04/22/recipe-my-vim-configuration/">&lt;p&gt;Few years ago, I was trying to choose a IDE to work with C++ and Python, but any environment convinced me…. Finally, i configured me VIM editor with Vundle.. It works very well and simple.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/carlosb1/b71924fc02a37ef27020.js&quot;&gt;&lt;/script&gt;</content>
 
@@ -222,11 +258,11 @@ decorator pattern and it adds two new operations to synchronize the access&lt;/p
       
       <title type="html">Recipe: Active Object pattern for C++ part1</title>
       
-      <link href="http://localhost:4000/2017/04/22/recipe-active-object-pattern-for-c-part1/" rel="alternate" type="text/html" title="Recipe: Active Object pattern for C++ part1" />
+      <link href="https://carlosb1.github.io/2017/04/22/recipe-active-object-pattern-for-c-part1/" rel="alternate" type="text/html" title="Recipe: Active Object pattern for C++ part1" />
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/04/22/recipe-active-object-pattern-for-c-part1</id>
-      <content type="html" xml:base="http://localhost:4000/2017/04/22/recipe-active-object-pattern-for-c-part1/">&lt;p&gt;It is the first solution for the active object pattern in C++11, it permits encapsulate the thread management in a different object.&lt;/p&gt;
+      <id>https://carlosb1.github.io/2017/04/22/recipe-active-object-pattern-for-c-part1</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/04/22/recipe-active-object-pattern-for-c-part1/">&lt;p&gt;It is the first solution for the active object pattern in C++11, it permits encapsulate the thread management in a different object.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/carlosb1/6ca0ac91a4e0c74ba7b02702ec76d7bd.js&quot;&gt;&lt;/script&gt;</content>
 
@@ -258,11 +294,11 @@ decorator pattern and it adds two new operations to synchronize the access&lt;/p
       
       <title type="html">Kakuro Solver</title>
       
-      <link href="http://localhost:4000/2017/04/22/kakuro-solver/" rel="alternate" type="text/html" title="Kakuro Solver" />
+      <link href="https://carlosb1.github.io/2017/04/22/kakuro-solver/" rel="alternate" type="text/html" title="Kakuro Solver" />
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/04/22/kakuro-solver</id>
-      <content type="html" xml:base="http://localhost:4000/2017/04/22/kakuro-solver/">&lt;p&gt;These days, I decided to refresh my Python and algorithm knownledge. For this reason, I looked for some algorithms problems.. 
+      <id>https://carlosb1.github.io/2017/04/22/kakuro-solver</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/04/22/kakuro-solver/">&lt;p&gt;These days, I decided to refresh my Python and algorithm knownledge. For this reason, I looked for some algorithms problems.. 
 Finally, I liked one from Reddit, &lt;a href=&quot;https://www.reddit.com/r/dailyprogrammer/comments/3g2tby/20150807_challenge_226_hard_kakuro_solver/&quot;&gt;the kakuro problem&lt;/a&gt; and this is my solution.&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/carlosb1/898857e94bbbb9ae50ec.js&quot;&gt;&lt;/script&gt;</content>
@@ -295,11 +331,11 @@ Finally, I liked one from Reddit, &lt;a href=&quot;https://www.reddit.com/r/dail
       
       <title type="html">Challenge: Reader and writer problem</title>
       
-      <link href="http://localhost:4000/2017/04/22/challenge-reader-and-writer-problem/" rel="alternate" type="text/html" title="Challenge: Reader and writer problem" />
+      <link href="https://carlosb1.github.io/2017/04/22/challenge-reader-and-writer-problem/" rel="alternate" type="text/html" title="Challenge: Reader and writer problem" />
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/04/22/challenge-reader-and-writer-problem</id>
-      <content type="html" xml:base="http://localhost:4000/2017/04/22/challenge-reader-and-writer-problem/">&lt;p&gt;Solution for the reader and writer concurrency problem
+      <id>https://carlosb1.github.io/2017/04/22/challenge-reader-and-writer-problem</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/04/22/challenge-reader-and-writer-problem/">&lt;p&gt;Solution for the reader and writer concurrency problem
 &lt;script src=&quot;https://gist.github.com/carlosb1/8594319fec29679c39bae9a914cf6548.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;</content>
 
       
@@ -330,11 +366,11 @@ Finally, I liked one from Reddit, &lt;a href=&quot;https://www.reddit.com/r/dail
       
       <title type="html">Challenge: Find all possible words from a random input of letters</title>
       
-      <link href="http://localhost:4000/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters/" rel="alternate" type="text/html" title="Challenge: Find all possible words from a random input of letters" />
+      <link href="https://carlosb1.github.io/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters/" rel="alternate" type="text/html" title="Challenge: Find all possible words from a random input of letters" />
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters</id>
-      <content type="html" xml:base="http://localhost:4000/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters/">&lt;p&gt;Sometimes, I will try to practise my kungfu code with problems… This is an exercise to find all possible words from a random number of letters
+      <id>https://carlosb1.github.io/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters/">&lt;p&gt;Sometimes, I will try to practise my kungfu code with problems… This is an exercise to find all possible words from a random number of letters
 &lt;script src=&quot;https://gist.github.com/carlosb1/4fd9cf09634ff07dff57e90d197c2bc5.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;</content>
 
       
@@ -365,11 +401,11 @@ Finally, I liked one from Reddit, &lt;a href=&quot;https://www.reddit.com/r/dail
       
       <title type="html">Presentation</title>
       
-      <link href="http://localhost:4000/2017/04/21/welcome-to-jekyll/" rel="alternate" type="text/html" title="Presentation" />
+      <link href="https://carlosb1.github.io/2017/04/21/welcome-to-jekyll/" rel="alternate" type="text/html" title="Presentation" />
       <published>2017-04-21T01:06:05+02:00</published>
       <updated>2017-04-21T01:06:05+02:00</updated>
-      <id>http://localhost:4000/2017/04/21/welcome-to-jekyll</id>
-      <content type="html" xml:base="http://localhost:4000/2017/04/21/welcome-to-jekyll/">&lt;p&gt;This is my blog. It is a journal to talk about all things which interested me, my hobbies and ideas.&lt;/p&gt;
+      <id>https://carlosb1.github.io/2017/04/21/welcome-to-jekyll</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/04/21/welcome-to-jekyll/">&lt;p&gt;This is my blog. It is a journal to talk about all things which interested me, my hobbies and ideas.&lt;/p&gt;
 
 &lt;p&gt;Carlos&lt;/p&gt;</content>
 
