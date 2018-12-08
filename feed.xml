@@ -5,7 +5,7 @@
   
   <link href="https://carlosb1.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://carlosb1.github.io/" rel="alternate" type="text/html" />
-  <updated>2017-10-23T01:19:28+02:00</updated>
+  <updated>2018-12-08T21:12:55+01:00</updated>
   <id>https://carlosb1.github.io//</id>
 
   
@@ -19,6 +19,45 @@
 
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Dijkstra example</title>
+      
+      <link href="https://carlosb1.github.io/2017/11/26/dijkstra-example/" rel="alternate" type="text/html" title="Dijkstra example" />
+      <published>2017-11-26T00:00:00+01:00</published>
+      <updated>2017-11-26T00:00:00+01:00</updated>
+      <id>https://carlosb1.github.io/2017/11/26/dijkstra-example</id>
+      <content type="html" xml:base="https://carlosb1.github.io/2017/11/26/dijkstra-example/">&lt;p&gt;I just finished an example in java 8 about an implementation of the&lt;br /&gt;
+Dijkstra algorithm to build the shortest path.&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/carlosb1/c388f7949f61438286a19b69b9baf2ce.js&quot;&gt;&lt;/script&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+        <category term="java" />
+      
+        <category term="java8" />
+      
+
+      
+
+      
+        <summary type="html">I just finished an example in java 8 about an implementation of the Dijkstra algorithm to build the shortest path.</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
