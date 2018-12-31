@@ -9,12 +9,12 @@
   
   
   
-  <title>Double checked problem for concurrency</title>
-  <meta name="description" content="This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects link">
+  <title>CRUD API Rest in Rust</title>
+  <meta name="description" content="REST Service in Rust">
   
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency/">
+  <link rel="canonical" href="http://localhost:4000/2018/12/08/crud-api-rest-in-rust/">
   
   
   <link rel="alternate" type="application/rss+xml" title="Personal blog" href="http://localhost:4000/feed.xml">
@@ -24,8 +24,8 @@
   
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="mcflurry0">
-  <meta name="twitter:title" content="Double checked problem for concurrency">
-  <meta name="twitter:description" content="This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects link">
+  <meta name="twitter:title" content="CRUD API Rest in Rust">
+  <meta name="twitter:description" content="REST Service in Rust">
   
     <meta name="twitter:creator" content="mcflurry0">
   
@@ -83,43 +83,26 @@
 
   <header class="post-header">
     
-      <h1 class="post-title" itemprop="name headline">Double checked problem for concurrency</h1>
+      <h1 class="post-title" itemprop="name headline">CRUD API Rest in Rust</h1>
     
-    <p class="post-meta"><time datetime="2017-04-25T00:00:00+02:00" itemprop="datePublished">Apr 25, 2017</time> • 
-  
-  
-    
-  
-    
-  
-    
-      <a href="/categories/cpp/">cpp</a>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-
-</p>
+    <p class="post-meta"><time datetime="2018-12-08T00:00:00+01:00" itemprop="datePublished">Dec 8, 2018</time></p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects <a href="https://app.box.com/s/t7kvebv4p8yiu5jfrr69ldujs7rqzdlw">link</a></p>
+    <h1 id="rest-service-in-rust">REST Service in Rust</h1>
 
-<p>The problem is explained with a Singleton pattern implemention (without smart pointers):</p>
+<p>I started a boilerplate project for future web implementations in Rust. As far as I know the normal backend is <a href="https//rocket.rs">Rocket</a> + <a href="http://diesel.rs">Diesel</a>.  With this project I will be able to extend the boilerplate for future requirements, and if it is necessary include any type.</p>
 
-<script src="https://gist.github.com/carlosb1/98008c218aa3ec367d563e2932136b3c.js"></script>
+<p>It is a minimal example for a REST API service.</p>
 
-<p>The problem how to evaluate the critical section efficiently. For this, it is necessary take care our blocking threads are trying to access to the critical session
-in a different time and ‘software state’ where in this state is possible has initialized our critical resource. The solution is:</p>
+<ul>
+  <li><code class="highlighter-rouge">db.rs</code>  Database manager class</li>
+  <li><code class="highlighter-rouge">error.rs</code> Class to manage error messages</li>
+  <li><code class="highlighter-rouge">main.rs</code> Entry point which includes REST service</li>
+  <li><code class="highlighter-rouge">schema.rs</code> Schema definition to connect with the database Postgres</li>
+</ul>
 
-<script src="https://gist.github.com/carlosb1/1ecb788fa7bfae316c2cbd7f4054e64c.js"></script>
-
+<p>Original <a href="https://github.com/carlosb1/examples-rust/tree/master/my_rocket_diesel_demo">source code</a></p>
 
   </div>
 
