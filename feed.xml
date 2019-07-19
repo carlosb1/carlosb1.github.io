@@ -5,7 +5,7 @@
   
   <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
   <link href="http://localhost:4000/" rel="alternate" type="text/html" />
-  <updated>2018-12-31T01:59:16+01:00</updated>
+  <updated>2019-07-19T15:28:06+02:00</updated>
   <id>http://localhost:4000//</id>
 
   
@@ -23,20 +23,22 @@
   
     <entry>
       
-      <title type="html">CRUD API Rest in Rust</title>
+      <title type="html">REST API Service in Rust</title>
       
-      <link href="http://localhost:4000/2018/12/08/crud-api-rest-in-rust/" rel="alternate" type="text/html" title="CRUD API Rest in Rust" />
-      <published>2018-12-08T00:00:00+01:00</published>
-      <updated>2018-12-08T00:00:00+01:00</updated>
-      <id>http://localhost:4000/2018/12/08/crud-api-rest-in-rust</id>
-      <content type="html" xml:base="http://localhost:4000/2018/12/08/crud-api-rest-in-rust/">&lt;h1 id=&quot;rest-service-in-rust&quot;&gt;REST Service in Rust&lt;/h1&gt;
+      
+      <link href="http://localhost:4000/2018/12/01/REST-rust-service/" rel="alternate" type="text/html" title="REST API Service in Rust" />
+      
+      <published>2018-12-01T00:00:00+01:00</published>
+      <updated>2018-12-01T00:00:00+01:00</updated>
+      <id>http://localhost:4000/2018/12/01/REST-rust-service</id>
+      <content type="html" xml:base="http://localhost:4000/2018/12/01/REST-rust-service/">&lt;h3 id=&quot;rest-service-in-rust&quot;&gt;REST Service in Rust&lt;/h3&gt;
 
-&lt;p&gt;I started a boilerplate project for future web implementations in Rust. As far as I know the normal backend is &lt;a href=&quot;https//rocket.rs&quot;&gt;Rocket&lt;/a&gt; + &lt;a href=&quot;http://diesel.rs&quot;&gt;Diesel&lt;/a&gt;.  With this project I will be able to extend the boilerplate for future requirements, and if it is necessary include any type.&lt;/p&gt;
+&lt;p&gt;I started a boilerplate project for future web implementations in Rust. As far as I know the normal backend is Rocket + Diesel. With this project I will be able to extend the boilerplate for future requirements, and if it is necessary include any type.&lt;/p&gt;
 
 &lt;p&gt;It is a minimal example for a REST API service.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;db.rs&lt;/code&gt;  Database manager class&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;db.rs&lt;/code&gt; Database manager class&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;error.rs&lt;/code&gt; Class to manage error messages&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;main.rs&lt;/code&gt; Entry point which includes REST service&lt;/li&gt;
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;schema.rs&lt;/code&gt; Schema definition to connect with the database Postgres&lt;/li&gt;
@@ -52,6 +54,8 @@
 
       
 
+      
+        <category term="rust" />
       
 
       
@@ -70,7 +74,9 @@
       
       <title type="html">Dijkstra example</title>
       
+      
       <link href="http://localhost:4000/2017/11/26/dijkstra-example/" rel="alternate" type="text/html" title="Dijkstra example" />
+      
       <published>2017-11-26T00:00:00+01:00</published>
       <updated>2017-11-26T00:00:00+01:00</updated>
       <id>http://localhost:4000/2017/11/26/dijkstra-example</id>
@@ -109,7 +115,9 @@ Dijkstra algorithm to build the shortest path.&lt;/p&gt;
       
       <title type="html">Flyweight pattern</title>
       
+      
       <link href="http://localhost:4000/2017/10/23/flyweight-pattern/" rel="alternate" type="text/html" title="Flyweight pattern" />
+      
       <published>2017-10-23T00:59:05+02:00</published>
       <updated>2017-10-23T00:59:05+02:00</updated>
       <id>http://localhost:4000/2017/10/23/flyweight-pattern</id>
@@ -145,7 +153,9 @@ Dijkstra algorithm to build the shortest path.&lt;/p&gt;
       
       <title type="html">Game of life kata in Rust</title>
       
+      
       <link href="http://localhost:4000/2017/07/09/game-of-life-kata-in-rust/" rel="alternate" type="text/html" title="Game of life kata in Rust" />
+      
       <published>2017-07-09T01:06:05+02:00</published>
       <updated>2017-07-09T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/07/09/game-of-life-kata-in-rust</id>
@@ -182,7 +192,9 @@ case I implemented the first part (without resurrections) of the Game of life:&l
       
       <title type="html">Skeleton scrapper python</title>
       
+      
       <link href="http://localhost:4000/2017/07/02/skeleton-scrapper-python/" rel="alternate" type="text/html" title="Skeleton scrapper python" />
+      
       <published>2017-07-02T01:06:05+02:00</published>
       <updated>2017-07-02T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/07/02/skeleton-scrapper-python</id>
@@ -226,7 +238,9 @@ case I implemented the first part (without resurrections) of the Game of life:&l
       
       <title type="html">Double checked problem for concurrency</title>
       
+      
       <link href="http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency/" rel="alternate" type="text/html" title="Double checked problem for concurrency" />
+      
       <published>2017-04-25T00:00:00+02:00</published>
       <updated>2017-04-25T00:00:00+02:00</updated>
       <id>http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency</id>
@@ -269,7 +283,9 @@ in a different time and ‘software state’ where in this state is possible has
       
       <title type="html">Recipe: Thread safe queue</title>
       
+      
       <link href="http://localhost:4000/2017/04/22/recipe-thread-safe-queue/" rel="alternate" type="text/html" title="Recipe:  Thread safe queue" />
+      
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/04/22/recipe-thread-safe-queue</id>
@@ -306,7 +322,9 @@ decorator pattern and it adds two new operations to synchronize the access&lt;/p
       
       <title type="html">Recipe: My VIM configuration</title>
       
+      
       <link href="http://localhost:4000/2017/04/22/recipe-my-vim-configuration/" rel="alternate" type="text/html" title="Recipe: My VIM configuration" />
+      
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/04/22/recipe-my-vim-configuration</id>
@@ -342,7 +360,9 @@ decorator pattern and it adds two new operations to synchronize the access&lt;/p
       
       <title type="html">Recipe: Active Object pattern for C++ part1</title>
       
+      
       <link href="http://localhost:4000/2017/04/22/recipe-active-object-pattern-for-c-part1/" rel="alternate" type="text/html" title="Recipe: Active Object pattern for C++ part1" />
+      
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/04/22/recipe-active-object-pattern-for-c-part1</id>
@@ -378,7 +398,9 @@ decorator pattern and it adds two new operations to synchronize the access&lt;/p
       
       <title type="html">Kakuro Solver</title>
       
+      
       <link href="http://localhost:4000/2017/04/22/kakuro-solver/" rel="alternate" type="text/html" title="Kakuro Solver" />
+      
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/04/22/kakuro-solver</id>
@@ -415,7 +437,9 @@ Finally, I liked one from Reddit, &lt;a href=&quot;https://www.reddit.com/r/dail
       
       <title type="html">Challenge: Reader and writer problem</title>
       
+      
       <link href="http://localhost:4000/2017/04/22/challenge-reader-and-writer-problem/" rel="alternate" type="text/html" title="Challenge: Reader and writer problem" />
+      
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/04/22/challenge-reader-and-writer-problem</id>
@@ -450,7 +474,9 @@ Finally, I liked one from Reddit, &lt;a href=&quot;https://www.reddit.com/r/dail
       
       <title type="html">Challenge: Find all possible words from a random input of letters</title>
       
+      
       <link href="http://localhost:4000/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters/" rel="alternate" type="text/html" title="Challenge: Find all possible words from a random input of letters" />
+      
       <published>2017-04-22T01:06:05+02:00</published>
       <updated>2017-04-22T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/04/22/challenge-find-all-possible-words-from-a-random-input-of-letters</id>
@@ -485,7 +511,9 @@ Finally, I liked one from Reddit, &lt;a href=&quot;https://www.reddit.com/r/dail
       
       <title type="html">Presentation</title>
       
+      
       <link href="http://localhost:4000/2017/04/21/welcome-to-jekyll/" rel="alternate" type="text/html" title="Presentation" />
+      
       <published>2017-04-21T01:06:05+02:00</published>
       <updated>2017-04-21T01:06:05+02:00</updated>
       <id>http://localhost:4000/2017/04/21/welcome-to-jekyll</id>

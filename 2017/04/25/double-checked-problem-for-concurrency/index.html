@@ -22,6 +22,12 @@
   
 
   
+  <meta property="og:title" content="Double checked problem for concurrency">
+  <meta property="og:site_name" content="Personal blog">
+  <meta property="og:url" content="http://localhost:4000/2017/04/25/double-checked-problem-for-concurrency/">
+  <meta property="og:description" content="This weekend, I read an article from Uncle Bob to optimise the access to thread-safe objects link">
+  
+  
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="mcflurry0">
   <meta name="twitter:title" content="Double checked problem for concurrency">
@@ -31,20 +37,9 @@
   
   
 
-  <script type="text/javascript">
-  WebFontConfig = {
-    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
-  };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })();
-</script>
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Bitter:400,400i,700&display=swap" rel="stylesheet">
 
   
 
@@ -68,6 +63,9 @@
         <a class="page-link" href="/archives/">Archives</a>
       
         
+        <a class="page-link" href="/projects/">Projects</a>
+      
+        
         <a class="page-link" href="https://github.com/carlosb1">GitHub</a>
       
     </nav>
@@ -85,25 +83,29 @@
     
       <h1 class="post-title" itemprop="name headline">Double checked problem for concurrency</h1>
     
-    <p class="post-meta"><time datetime="2017-04-25T00:00:00+02:00" itemprop="datePublished">Apr 25, 2017</time> • 
-  
-  
-    
+    <p class="post-meta"><time datetime="2017-04-25T00:00:00+02:00" itemprop="datePublished">Apr 25, 2017</time> •
   
     
-  
     
-      <a href="/categories/cpp/">cpp</a>
+      
+    
+      
+    
+      
+        <a href="/categories/cpp/">cpp</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
     
   
-    
-  
-    
-  
-    
-  
-    
-  
+
+
 
 </p>
   </header>
@@ -122,6 +124,8 @@ in a different time and ‘software state’ where in this state is possible has
 
 
   </div>
+
+  
 
 </article>
 
