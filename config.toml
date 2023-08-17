@@ -31,7 +31,7 @@ menu = [
 ]
 
 socials = [
-    { name = "email", url = "carlos.baezruiz@gmail.com", icon = "email" },
+    { name = "email", url = "mailto:carlos.baezruiz@gmail.com", icon = "email" },
     { name = "github", url = "https://github.com/carlosb1/", icon = "github" },
 ]
 
