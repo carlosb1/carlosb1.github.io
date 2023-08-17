@@ -1,0 +1,95 @@
+# The URL the site will be built for
+base_url = "https://carlosb1.github.io"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+theme = "blow"
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = false
+
+[extra]
+enable_search = true
+enable_sidebar = true
+enable_adsense = true
+enable_multilingue = true
+adsense_link = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=myclientid"
+
+[extra.lang]
+items = [
+    { lang = "en", links = [
+        { base_url = "/", name = "English" },
+        { base_url = "/es", name = "Spanish" },
+    ] },
+    { lang = "es", links = [
+        { base_url = "/", name = "Inglés" },
+        { base_url = "/es", name = "Español" },
+    ] },
+]
+
+[extra.navbar]
+items = [
+    { lang = "en", links = [
+        { url = "/", name = "Home" },
+        { url = "/categories", name = "Categories" },
+        { url = "/tags", name = "Tags" },
+    ] },
+    { lang = "es", links = [
+        { url = "/es", name = "Inicio" },
+        { url = "/es/categories", name = "Categorias" },
+        { url = "/es/tags", name = "Tags" },
+    ] },
+]
+title = ""
+
+[extra.sidebar]
+items = [
+    { lang = "en", links = [
+        { url = "/markdown", name = "Markdown" },
+        { url = "/blog", name = "Blog" },
+    ] },
+    { lang = "es", links = [
+        { url = "/es/markdown", name = "Markdown" },
+        { url = "/es/blog", name = "Blog" },
+    ] },
+]
+
+# Index page
+[extra.index]
+title = "Carlos Báez"
+image = "https://via.placeholder.com/200"
+image_alt = "Placeholder text describing the index's image."
+
+[extra.default_author]
+name = "Carlos Baez"
+avatar = "https://via.placeholder.com/200"
+avatar_alt = "Placeholder text describing the default author's avatar."
+
+[extra.social]
+github = "https://github.com/carlosb1"
+# gitlab = "https://gitlab.com/johndoe"
+# twitter = "https://twitter.com/carlosb1"
+linkedin = "https://www.linkedin.com/in/carlosbaezruiz/"
+email = "carlos.baezruiz@gmail.com"
+
+[extra.favicon]
+favicon = "/icons/favicon.ico"
+favicon_16x16 = "/icons/favicon-16x16.png"
+favicon_32x32 = "/icons/favicon-32x32.png"
+apple_touch_icon = "/icons/apple-touch-icon.png"
+android_chrome_512 = "/icons/android-chrome-512x512.png"
+android_chrome_192 = "/icons/android-chrome-192x192.png"
+manifest = "/icons/site.webmanifest"
+
+highlight_theme = "css"
+
+highlight_themes_css = [
+  { theme = "ayu-dark", filename = "syntax-dark.css" },
+  { theme = "ayu-light", filename = "syntax-light.css" },
+]
