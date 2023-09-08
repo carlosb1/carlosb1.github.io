@@ -60,3 +60,76 @@ fn get_on_msg_callback() -> Closure<dyn FnMut(MessageEvent)> {
 }
 ```
 You can check, how we created a worker function with name `hello_world` that it can be called from javascript.
+
+For the Javascript part, we have the `index.html` and the `worker.js`:
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        canvas#my_canvas {
+			position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div style="max-height: 256px;max-width:256px;overflow: scroll;">
+    <canvas id="my_canvas"></canvas>
+</div>
+
+<script src="pkg/my_webgl_app.js"></script>
+
+<script>
+    const {main} = wasm_bindgen;
+    async function run() {
+            await wasm_bindgen();
+            main();
+    }
+    run();
+</script>
+
+</body>
+</html>
+```
+```javascript
+// worker.js
+importScripts("./pkg/my_webgl_app.js"); //generated wasm code, the name depends on project
+
+console.log("Initializing worker");
+
+// In the worker, we have a different struct that we want to use as in
+// `index.js`.
+
+async function init_wasm_in_worker() {
+  self.onmessage = async (event) => {
+    await wasm_bindgen("./pkg/my_webgl_app_bg.wasm");
+    const { MyWorker } = wasm_bindgen;
+    var my_worker = MyWorker.new();
+
+    var hello = my_worker.hello_world("john");
+
+    console.log("please ");
+    console.log(hello);
+
+    // Send response back to be handled by callback in main thread.
+
+    setInterval(() => {
+      //postMessage();
+      self.postMessage("returns message");
+    }, 500);
+  };
+}
+
+init_wasm_in_worker();
+```
