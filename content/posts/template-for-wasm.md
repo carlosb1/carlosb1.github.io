@@ -1,5 +1,5 @@
 +++
-title = "Template for WASM with "
+title = "Template for WASM with a WebWorker"
 date = "2023-09-01"
 +++
 
