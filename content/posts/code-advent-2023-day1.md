@@ -1,9 +1,9 @@
 +++
 title = "Elixir solution for code advent, (day1)"
-date = "2023-10-1"
+date = "2023-10-01"
 +++
 
-My implementation for the code-advent [day1](https://adventofcode.com/2022/day/1) 
+My implementation for the code-advent [day1](https://adventofcode.com/2022/day/1)
 
 ```Elixir
 defmodule Day1 do
