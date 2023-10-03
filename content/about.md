@@ -8,7 +8,7 @@ path = "about"
 
 * Developer, engineer. Rust/Python/Elixir
     - I try to contribute in different projects for Rust, Python etc.
-    - I am always insterested to check some ideas and POFs in my repository (where Rust and Python fit very well).
+    - I am always insterested to check some ideas and POCs in my repository (where Rust and Python fit very well).
 * Reader, triathlete and surfer
 * My tech interests:
     * Software architecture (Clean code, SOLID principles, good practices)
