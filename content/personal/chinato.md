@@ -18,7 +18,7 @@ Cabalgaré por valles y montañas a lomos de mi Gitana<br>
 Sin dejar más señal para el retorno<br>
 que la sonrisa y la amabilidad.<br>
 <br>
-Escucharé hisotias escalofriantes de viejos.<br>
+Escucharé historias escalofriantes de viejos.<br>
 Contaré historias inventadas<br>
 a preciosos niños dulces y traviesos;<br>
 <br>
