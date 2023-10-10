@@ -1,0 +1,128 @@
+<!doctype html><html class="dark light"><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><title>
+         Distributed systems concepts (Part 1)
+        
+    </title><meta content="Distributed systems concepts (Part 1)" property=og:title><link href=/icon/favicon.png rel=icon type=image/png><link href=https://carlosb1.github.io/fonts.css rel=stylesheet><link title="Carlos Baez" href=https://carlosb1.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://carlosb1.github.io/theme/light.css rel=stylesheet><link href=https://carlosb1.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><link href=https://carlosb1.github.io/main.css media=screen rel=stylesheet><script src=https://carlosb1.github.io/js/feather.min.js></script><body><div class=content><header><div class=main><a href=https://carlosb1.github.io>Carlos Baez</a><div class=socials><a class=social href=mailto:carlos.baezruiz@gmail.com rel=me> <img alt=email src=/social_icons/email.svg> </a><a class=social href=https://github.com/carlosb1/ rel=me> <img alt=github src=/social_icons/github.svg> </a></div></div><nav><a href=/posts style=margin-left:.7em>/posts</a><a href=/projects style=margin-left:.7em>/projects</a><a href=/personal style=margin-left:.7em>/personal</a><a href=/about style=margin-left:.7em>/about</a></nav><nav>| <a href id=dark-mode-toggle onclick=toggleTheme()></a><script src=https://carlosb1.github.io/js/themetoggle.js></script></nav></header><main><article><div class=title><div class=page-header>Distributed systems concepts (Part 1)<span class=primary-color style=font-size:1.6em>.</span></div><div class=meta>Posted on <time>2023-09-26</time></div></div><section class=body><p>Learning about Distributed systems and their usual patterns. I started to learn patterns from the Uncle Bob <a href=https://martinfowler.com/articles/patterns-of-distributed-systems>web</a>. I started checking the <a href=https://martinfowler.com/articles/patterns-of-distributed-systems/lamport-clock.html>Lamport clock</a>.<p>Furthermore, It is a good opportunity to use <a href=https://github.com/lemunozm/message-io>message-io</a> library which easier a lot the network protocols. In fact, It simplifies the creation of a client-server communication and its protocol with these files:<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=font-style:italic;color:#5c6773>//net.rs
+</span><span style=color:#ff7733>use </span><span>message_io</span><span style=color:#f29668>::</span><span>network</span><span style=color:#f29668>::</span><span>{NetEvent</span><span style=color:#bfbab0cc>,</span><span> Transport}</span><span style=color:#bfbab0cc>;
+</span><span style=color:#ff7733>use </span><span>message_io</span><span style=color:#f29668>::</span><span>node</span><span style=color:#f29668>::</span><span>{</span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#bfbab0cc>,</span><span> NodeEvent}</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#ff7733>use crate</span><span style=color:#f29668>::</span><span>adapters</span><span style=color:#f29668>::</span><span>network</span><span style=color:#f29668>::</span><span>message</span><span style=color:#f29668>::</span><span>{FromClientMessage</span><span style=color:#bfbab0cc>,</span><span> FromServerMessage</span><span style=color:#bfbab0cc>,</span><span> Signal}</span><span style=color:#bfbab0cc>;
+</span><span style=color:#ff7733>use crate</span><span style=color:#f29668>::</span><span>entity</span><span style=color:#f29668>::</span><span>Node</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#ff7733>use </span><span>std</span><span style=color:#f29668>::</span><span>sync</span><span style=color:#f29668>::</span><span>Arc</span><span style=color:#bfbab0cc>;
+</span><span style=color:#ff7733>use </span><span>std</span><span style=color:#f29668>::</span><span>sync</span><span style=color:#f29668>::</span><span>Mutex</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#ff7733>pub trait </span><span style=color:#59c2ff>ServerDispatcher </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>dispatch</span><span>(</span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>received</span><span style=color:#bfbab0cc>:</span><span> FromClientMessage) </span><span style=color:#bfbab0cc>-> </span><span style=font-style:italic;color:#39bae6>Option</span><span>&LTFromServerMessage></span><span style=color:#bfbab0cc>;
+</span><span>}
+</span><span style=color:#ff7733>pub trait </span><span style=color:#59c2ff>ClientDispatcher </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>dispatch</span><span>(</span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>received</span><span style=color:#bfbab0cc>:</span><span> FromServerMessage) </span><span style=color:#bfbab0cc>-> </span><span style=font-style:italic;color:#39bae6>Option</span><span>&LTFromClientMessage></span><span style=color:#bfbab0cc>;
+</span><span>}
+</span><span>
+</span><span style=font-style:italic;color:#5c6773>/// Network function for setting up a message-io server.
+</span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>run_server</span><span>&LTT</span><span style=color:#bfbab0cc>:</span><span> ServerDispatcher </span><span style=color:#f29668>+ </span><span style=font-style:italic;color:#39bae6>Clone</span><span>>(</span><span style=color:#f29718>node</span><span style=color:#bfbab0cc>:</span><span> Node, </span><span style=color:#f29718>dispatcher</span><span style=color:#bfbab0cc>: </span><span>Arc&LTMutex&LTT>>) {
+</span><span>    log</span><span style=color:#f29668>::</span><span>info</span><span style=color:#f29668>!</span><span>(</span><span style=color:#c2d94c>"Running server for address {:}"</span><span style=color:#bfbab0cc>,</span><span> node</span><span style=color:#f29668>.</span><span>address)</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let </span><span>(handler</span><span style=color:#bfbab0cc>,</span><span> listener) </span><span style=color:#f29668>= </span><span>node</span><span style=color:#f29668>::</span><span>split</span><span style=color:#f29668>::</span><span><()>()</span><span style=color:#bfbab0cc>;
+</span><span>    handler
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>network</span><span>()
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>listen</span><span>(Transport</span><span style=color:#f29668>::</span><span>FramedTcp</span><span style=color:#bfbab0cc>,</span><span> node</span><span style=color:#f29668>.</span><span>address)
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    listener</span><span style=color:#f29668>.</span><span style=color:#f07178>for_each</span><span>(</span><span style=color:#ff7733>move </span><span style=color:#f29668>|</span><span>event</span><span style=color:#f29668>| </span><span style=color:#ff7733>match</span><span> event</span><span style=color:#f29668>.</span><span style=color:#f07178>network</span><span>() {
+</span><span>        NetEvent</span><span style=color:#f29668>::</span><span>Connected(</span><span style=color:#f29668>_</span><span style=color:#bfbab0cc>, </span><span style=color:#f29668>_</span><span>) </span><span style=color:#f29668>=> </span><span style=color:#f07178>unreachable!</span><span>()</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#5c6773>// Used for explicit connections.
+</span><span>        NetEvent</span><span style=color:#f29668>::</span><span>Accepted(_endpoint</span><span style=color:#bfbab0cc>,</span><span> _listener) </span><span style=color:#f29668>=> </span><span>log</span><span style=color:#f29668>::</span><span>info</span><span style=color:#f29668>!</span><span>(</span><span style=color:#c2d94c>"Client connected"</span><span>)</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#5c6773>// Tcp or Ws
+</span><span>        NetEvent</span><span style=color:#f29668>::</span><span>Message(endpoint</span><span style=color:#bfbab0cc>,</span><span> data) </span><span style=color:#f29668>=> </span><span>{
+</span><span>            </span><span style=color:#ff7733>let</span><span> message</span><span style=color:#bfbab0cc>:</span><span> FromClientMessage </span><span style=color:#f29668>= </span><span>bincode</span><span style=color:#f29668>::</span><span>deserialize(</span><span style=color:#f29668>&</span><span>data)</span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>            </span><span style=color:#ff7733>let</span><span> response_message </span><span style=color:#f29668>=</span><span> dispatcher
+</span><span>                </span><span style=color:#f29668>.</span><span style=color:#f07178>lock</span><span>()
+</span><span>                </span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap</span><span>()
+</span><span>                </span><span style=color:#f29668>.</span><span style=color:#f07178>clone</span><span>()
+</span><span>                </span><span style=color:#f29668>.</span><span style=color:#f07178>dispatch</span><span>(message</span><span style=color:#f29668>.</span><span style=color:#f07178>clone</span><span>())
+</span><span>                </span><span style=color:#f29668>.</span><span style=color:#f07178>expect</span><span>(</span><span style=color:#c2d94c>"It could no dispatch message"</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>            log</span><span style=color:#f29668>::</span><span>info</span><span style=color:#f29668>!</span><span>(</span><span style=color:#c2d94c>"response message:{:?}"</span><span style=color:#bfbab0cc>,</span><span> message)</span><span style=color:#bfbab0cc>;
+</span><span>            </span><span style=color:#ff7733>let</span><span> response </span><span style=color:#f29668>= </span><span>bincode</span><span style=color:#f29668>::</span><span>serialize(</span><span style=color:#f29668>&</span><span>response_message)</span><span style=color:#f29668>.</span><span style=color:#f07178>expect</span><span>(</span><span style=color:#c2d94c>"It could not serialize "</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>            log</span><span style=color:#f29668>::</span><span>info</span><span style=color:#f29668>!</span><span>(</span><span style=color:#c2d94c>"response:{:?}"</span><span style=color:#bfbab0cc>,</span><span> response)</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>            handler</span><span style=color:#f29668>.</span><span style=color:#f07178>network</span><span>()</span><span style=color:#f29668>.</span><span style=color:#f07178>send</span><span>(endpoint</span><span style=color:#bfbab0cc>, </span><span style=color:#f29668>&</span><span>response)</span><span style=color:#bfbab0cc>;
+</span><span>        }
+</span><span>        NetEvent</span><span style=color:#f29668>::</span><span>Disconnected(_endpoint) </span><span style=color:#f29668>=> </span><span>log</span><span style=color:#f29668>::</span><span>info</span><span style=color:#f29668>!</span><span>(</span><span style=color:#c2d94c>"Client disconnected"</span><span>)</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#5c6773>//Tcp or Ws
+</span><span>    })</span><span style=color:#bfbab0cc>;
+</span><span>}
+</span><span>
+</span><span style=font-style:italic;color:#5c6773>/// Network function for setting up a message-io client.
+</span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>run_client</span><span>&LTT</span><span style=color:#bfbab0cc>:</span><span> ClientDispatcher </span><span style=color:#f29668>+ </span><span style=font-style:italic;color:#39bae6>Clone</span><span>>(
+</span><span>    </span><span style=color:#f29718>message</span><span style=color:#bfbab0cc>:</span><span> FromClientMessage,
+</span><span>    </span><span style=color:#f29718>dispatcher</span><span style=color:#bfbab0cc>: </span><span>Arc&LTMutex&LTT>>,
+</span><span>) {
+</span><span>    </span><span style=color:#ff7733>let</span><span> port </span><span style=color:#f29668>= </span><span>std</span><span style=color:#f29668>::</span><span>env</span><span style=color:#f29668>::</span><span>var(</span><span style=color:#c2d94c>"PORT"</span><span>)</span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap_or</span><span>(</span><span style=color:#c2d94c>"3042"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>())</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> host </span><span style=color:#f29668>= </span><span>std</span><span style=color:#f29668>::</span><span>env</span><span style=color:#f29668>::</span><span>var(</span><span style=color:#c2d94c>"HOST"</span><span>)</span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap_or</span><span>(</span><span style=color:#c2d94c>"0.0.0.0"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>())</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> address </span><span style=color:#f29668>= </span><span style=color:#f07178>format!</span><span>(</span><span style=color:#c2d94c>"</span><span style=color:#f29718>{:}</span><span style=color:#c2d94c>:</span><span style=color:#f29718>{:}</span><span style=color:#c2d94c>"</span><span style=color:#bfbab0cc>,</span><span> host</span><span style=color:#bfbab0cc>,</span><span> port)</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#ff7733>let </span><span>(handler</span><span style=color:#bfbab0cc>,</span><span> listener) </span><span style=color:#f29668>= </span><span>node</span><span style=color:#f29668>::</span><span>split()</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#ff7733>let </span><span>(server</span><span style=color:#bfbab0cc>, </span><span style=color:#f29668>_</span><span>) </span><span style=color:#f29668>=</span><span> handler
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>network</span><span>()
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>connect</span><span>(Transport</span><span style=color:#f29668>::</span><span>FramedTcp</span><span style=color:#bfbab0cc>,</span><span> address)
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    listener</span><span style=color:#f29668>.</span><span style=color:#f07178>for_each</span><span>(</span><span style=color:#ff7733>move </span><span style=color:#f29668>|</span><span>event</span><span style=color:#f29668>| </span><span style=color:#ff7733>match</span><span> event {
+</span><span>        NodeEvent</span><span style=color:#f29668>::</span><span>Network(net_event) </span><span style=color:#f29668>=> </span><span style=color:#ff7733>match</span><span> net_event {
+</span><span>            NetEvent</span><span style=color:#f29668>::</span><span>Connected(_endpoint</span><span style=color:#bfbab0cc>,</span><span> _ok) </span><span style=color:#f29668>=></span><span> handler</span><span style=color:#f29668>.</span><span style=color:#f07178>signals</span><span>()</span><span style=color:#f29668>.</span><span style=color:#f07178>send</span><span>(Signal</span><span style=color:#f29668>::</span><span>Greet)</span><span style=color:#bfbab0cc>,
+</span><span>            NetEvent</span><span style=color:#f29668>::</span><span>Accepted(</span><span style=color:#f29668>_</span><span style=color:#bfbab0cc>, </span><span style=color:#f29668>_</span><span>) </span><span style=color:#f29668>=> </span><span style=color:#f07178>unreachable!</span><span>()</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#5c6773>// Only generated by listening
+</span><span>            NetEvent</span><span style=color:#f29668>::</span><span>Message(_endpoint</span><span style=color:#bfbab0cc>,</span><span> data) </span><span style=color:#f29668>=> </span><span>{
+</span><span>                </span><span style=color:#ff7733>let</span><span> message</span><span style=color:#bfbab0cc>:</span><span> FromServerMessage </span><span style=color:#f29668>=
+</span><span>                    bincode</span><span style=color:#f29668>::</span><span>deserialize(</span><span style=color:#f29668>&</span><span>data)</span><span style=color:#f29668>.</span><span style=color:#f07178>expect</span><span>(</span><span style=color:#c2d94c>"It could not serialize the data"</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>                dispatcher</span><span style=color:#f29668>.</span><span style=color:#f07178>lock</span><span>()</span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap</span><span>()</span><span style=color:#f29668>.</span><span style=color:#f07178>clone</span><span>()</span><span style=color:#f29668>.</span><span style=color:#f07178>dispatch</span><span>(message</span><span style=color:#f29668>.</span><span style=color:#f07178>clone</span><span>())</span><span style=color:#bfbab0cc>;
+</span><span>            }
+</span><span>            NetEvent</span><span style=color:#f29668>::</span><span>Disconnected(_endpoint) </span><span style=color:#f29668>=> </span><span>()</span><span style=color:#bfbab0cc>,
+</span><span>        }</span><span style=color:#bfbab0cc>,
+</span><span>        NodeEvent</span><span style=color:#f29668>::</span><span>Signal(signal) </span><span style=color:#f29668>=> </span><span style=color:#ff7733>match</span><span> signal {
+</span><span>            Signal</span><span style=color:#f29668>::</span><span>Greet </span><span style=color:#f29668>=> </span><span>{
+</span><span>                handler
+</span><span>                    </span><span style=color:#f29668>.</span><span style=color:#f07178>network</span><span>()
+</span><span>                    </span><span style=color:#f29668>.</span><span style=color:#f07178>send</span><span>(server</span><span style=color:#bfbab0cc>, </span><span style=color:#f29668>&</span><span>bincode</span><span style=color:#f29668>::</span><span>serialize(</span><span style=color:#f29668>&</span><span>message)</span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap</span><span>())</span><span style=color:#bfbab0cc>;
+</span><span>            }
+</span><span>        }</span><span style=color:#bfbab0cc>,
+</span><span>    })</span><span style=color:#bfbab0cc>;
+</span><span>}
+</span></code></pre><p>and the supported messages<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=font-style:italic;color:#5c6773>//message.rs
+</span><span style=font-style:italic;color:#5c6773>/// Set of available messages for message-io communication.
+</span><span style=color:#ff7733>use </span><span>serde</span><span style=color:#f29668>::</span><span>{Deserialize</span><span style=color:#bfbab0cc>,</span><span> Serialize}</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>derive</span><span>(Serialize</span><span style=color:#bfbab0cc>,</span><span> Deserialize</span><span style=color:#bfbab0cc>,</span><span> Debug</span><span style=color:#bfbab0cc>,</span><span> Clone)]
+</span><span style=color:#ff7733>pub enum </span><span style=color:#59c2ff>FromClientMessage </span><span>{
+</span><span>    Ping</span><span style=color:#bfbab0cc>,
+</span><span>    Read(</span><span style=font-style:italic;color:#39bae6>String</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>Option</span><span><</span><span style=font-style:italic;color:#39bae6>String</span><span>></span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>Option</span><span><</span><span style=color:#ff7733>u64</span><span>>)</span><span style=color:#bfbab0cc>,
+</span><span>    Write(</span><span style=font-style:italic;color:#39bae6>String</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>String</span><span style=color:#bfbab0cc>, </span><span style=color:#ff7733>u64</span><span>)</span><span style=color:#bfbab0cc>,
+</span><span>    UnknownPong</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#5c6773>// Used for non-connection oriented protocols
+</span><span>}
+</span><span>
+</span><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>derive</span><span>(Serialize</span><span style=color:#bfbab0cc>,</span><span> Deserialize</span><span style=color:#bfbab0cc>,</span><span> Debug</span><span style=color:#bfbab0cc>,</span><span> Clone)]
+</span><span style=color:#ff7733>pub enum </span><span style=color:#59c2ff>FromServerMessage </span><span>{
+</span><span>    WrittenAt(</span><span style=color:#ff7733>u64</span><span>)</span><span style=color:#bfbab0cc>,
+</span><span>    Pong(</span><span style=font-style:italic;color:#39bae6>String</span><span>)</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#5c6773>// Used for connection oriented protocols
+</span><span>    UnknownPong</span><span style=color:#bfbab0cc>,  </span><span style=font-style:italic;color:#5c6773>// Used for non-connection oriented protocols
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>pub enum </span><span style=color:#59c2ff>Signal </span><span>{
+</span><span>    Greet</span><span style=color:#bfbab0cc>,
+</span><span>    </span><span style=font-style:italic;color:#5c6773>// Any other app event here.
+</span><span>}
+</span></code></pre><p>It works with callback that they are applied via dispatchers for both <code>Client</code> and <code>Server</code><p>Then, we should implement our first module that it is the lamport clock structure<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=font-style:italic;color:#5c6773>//lamport.rs
+</span><span style=color:#ff7733>use </span><span>std</span><span style=color:#f29668>::</span><span>cmp</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>derive</span><span>(Default</span><span style=color:#bfbab0cc>,</span><span> Clone)]
+</span><span style=color:#ff7733>pub struct </span><span style=color:#59c2ff>LamportClock </span><span>{
+</span><span>    </span><span style=color:#ff7733>pub </span><span>latest_time</span><span style=color:#bfbab0cc>: </span><span style=color:#ff7733>u64</span><span>,
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>impl </span><span style=color:#59c2ff>LamportClock </span><span>{
+</span><span>    </span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>new</span><span>(</span><span style=color:#f29718>latest_time</span><span style=color:#bfbab0cc>: </span><span style=color:#ff7733>u64</span><span>) </span><span style=color:#bfbab0cc>-> </span><span style=color:#ff7733>Self </span><span>{
+</span><span>        LamportClock { latest_time }
+</span><span>    }
+</span><span>    </span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>tick</span><span>(</span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>request_time</span><span style=color:#bfbab0cc>: </span><span style=color:#ff7733>u64</span><span>) </span><span style=color:#bfbab0cc>-> </span><span style=color:#ff7733>u64 </span><span>{
+</span><span>        </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>latest_time </span><span style=color:#f29668>= </span><span>cmp</span><span style=color:#f29668>::</span><span>max(</span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>latest_time</span><span style=color:#bfbab0cc>,</span><span> request_time)</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>latest_time </span><span style=color:#f29668>+= </span><span style=color:#f29718>1</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=color:#ff7733>return </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>latest_time</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>}
+</span></code></pre></section></article></main></div>

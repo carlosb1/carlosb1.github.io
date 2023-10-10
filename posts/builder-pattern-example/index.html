@@ -1,0 +1,93 @@
+<!doctype html><html class="dark light"><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><title>
+         Example for builder pattern
+        
+    </title><meta content="Example for builder pattern" property=og:title><link href=/icon/favicon.png rel=icon type=image/png><link href=https://carlosb1.github.io/fonts.css rel=stylesheet><link title="Carlos Baez" href=https://carlosb1.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://carlosb1.github.io/theme/light.css rel=stylesheet><link href=https://carlosb1.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><link href=https://carlosb1.github.io/main.css media=screen rel=stylesheet><script src=https://carlosb1.github.io/js/feather.min.js></script><body><div class=content><header><div class=main><a href=https://carlosb1.github.io>Carlos Baez</a><div class=socials><a class=social href=mailto:carlos.baezruiz@gmail.com rel=me> <img alt=email src=/social_icons/email.svg> </a><a class=social href=https://github.com/carlosb1/ rel=me> <img alt=github src=/social_icons/github.svg> </a></div></div><nav><a href=/posts style=margin-left:.7em>/posts</a><a href=/projects style=margin-left:.7em>/projects</a><a href=/personal style=margin-left:.7em>/personal</a><a href=/about style=margin-left:.7em>/about</a></nav><nav>| <a href id=dark-mode-toggle onclick=toggleTheme()></a><script src=https://carlosb1.github.io/js/themetoggle.js></script></nav></header><main><article><div class=title><div class=page-header>Example for builder pattern<span class=primary-color style=font-size:1.6em>.</span></div><div class=meta>Posted on <time>2023-08-19</time></div></div><h1>Table of Contents</h1><ul><li><a href=https://carlosb1.github.io/posts/builder-pattern-example/#default>Default</a><li><a href=https://carlosb1.github.io/posts/builder-pattern-example/#builder-pattern>Builder pattern</a></ul><section class=body><h2 id=default>Default</h2><p>Usually, a good practice in the development process is the protection of the incorrect instance constructions. This protection is for the developer, when you are managing a lot of different object instances for different purposes, a clean constructor design will provide the necessary features:<ul><li><p>The object can not permit the creation of an invalid designed object (for example, in a form, a <code>Person</code> object needs to include name and surname... Both parameters must be together).</p><li><p>The encapsulation of the creation process... The concept of creation, it implies more steps than setting parameters. For a clean design, it implies all the necessary logic to have ready an object (domain or value object). For this reason a correct encapsulation will be provide an easy adaptation of the SOLID rule, <code>open for extension close for modification</code></p><li><p>It keeps the immutability in the objects, it creates new instances avoiding the internal modification (In this case, we can be sceptic because it)</p><li><p>It split responsibilities. Then, the code will be easier to read and maintain,</p></ul><p>These points are only a few ones of the most important, but it can be found a lot of mores in articles from Martin Fowler or Uncle bob<p>In this case, Rust provides a simple feature , named <code>Default</code> for avoiding a big constructor that it can be a first step in the creation of an object. Here one example:<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#ff7733>use </span><span>std</span><span style=color:#f29668>::</span><span>default</span><span style=color:#bfbab0cc>;
+</span><span style=color:#ff7733>use </span><span>std</span><span style=color:#f29668>::</span><span>fmt</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#ff7733>struct </span><span style=color:#59c2ff>Example </span><span>{
+</span><span>    param</span><span style=color:#bfbab0cc>:</span><span> String,
+</span><span>    param2</span><span style=color:#bfbab0cc>: </span><span style=color:#ff7733>u32</span><span>,
+</span><span>    param3</span><span style=color:#bfbab0cc>:</span><span> String,
+</span><span>    optional</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>Option</span><span><</span><span style=font-style:italic;color:#39bae6>String</span><span>>,
+</span><span>    optional2</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>Option</span><span><</span><span style=font-style:italic;color:#39bae6>String</span><span>>,
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>impl </span><span>fmt</span><span style=color:#f29668>::</span><span>Display </span><span style=color:#ff7733>for </span><span style=color:#59c2ff>Example </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>fmt</span><span>(</span><span style=color:#f29668>&</span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>f</span><span style=color:#bfbab0cc>: </span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span>fmt</span><span style=color:#f29668>::</span><span>Formatter) </span><span style=color:#bfbab0cc>-> </span><span>fmt</span><span style=color:#f29668>::</span><span>Result {
+</span><span>        </span><span style=color:#f07178>write!</span><span>(
+</span><span>            f,
+</span><span>            </span><span style=color:#c2d94c>"param=</span><span style=color:#f29718>{}</span><span style=color:#c2d94c>, param2=</span><span style=color:#f29718>{}</span><span style=color:#c2d94c>, param3=</span><span style=color:#f29718>{}</span><span style=color:#c2d94c>, optional=</span><span style=color:#f29718>{:?}</span><span style=color:#c2d94c>, optional2=</span><span style=color:#f29718>{:?}</span><span style=color:#c2d94c>"</span><span style=color:#bfbab0cc>,
+</span><span>            </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>param</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>param2</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>param3</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>optional</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>optional2
+</span><span>        )
+</span><span>    }
+</span><span>}
+</span><span style=color:#ff7733>impl </span><span>Default </span><span style=color:#ff7733>for </span><span style=color:#59c2ff>Example </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>default</span><span>() </span><span style=color:#bfbab0cc>-> </span><span style=color:#ff7733>Self </span><span>{
+</span><span>        Example {
+</span><span>            param</span><span style=color:#bfbab0cc>: </span><span style=color:#c2d94c>"default"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>()</span><span style=color:#bfbab0cc>,
+</span><span>            param2</span><span style=color:#bfbab0cc>: </span><span style=color:#f29718>1</span><span style=color:#bfbab0cc>,
+</span><span>            param3</span><span style=color:#bfbab0cc>: </span><span style=color:#c2d94c>"default3"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>()</span><span style=color:#bfbab0cc>,
+</span><span>            optional</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>None</span><span style=color:#bfbab0cc>,
+</span><span>            optional2</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>Some</span><span>(</span><span style=color:#c2d94c>"optional2"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>())</span><span style=color:#bfbab0cc>,
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre><p>With this, you only need to use in the constructor not default params... it can simplify the creation, here we have how it can be created:<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>main</span><span>() {
+</span><span>    </span><span style=color:#f07178>println!</span><span>(
+</span><span>        </span><span style=color:#c2d94c>"example=</span><span style=color:#f29718>{:}</span><span style=color:#c2d94c>"</span><span style=color:#bfbab0cc>,
+</span><span>        Example {
+</span><span>            param3</span><span style=color:#bfbab0cc>: </span><span style=color:#c2d94c>"anotherparam"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>()</span><span style=color:#bfbab0cc>,
+</span><span>            </span><span style=color:#f29668>..</span><span style=font-style:italic;color:#39bae6>Default</span><span style=color:#f29668>::</span><span>default()
+</span><span>        }
+</span><span>    )</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#f07178>println!</span><span>(
+</span><span>        </span><span style=color:#c2d94c>"example2=</span><span style=color:#f29718>{:}</span><span style=color:#c2d94c>"</span><span style=color:#bfbab0cc>,
+</span><span>        Example {
+</span><span>            param2</span><span style=color:#bfbab0cc>: </span><span style=color:#f29718>2</span><span style=color:#bfbab0cc>,
+</span><span>            </span><span style=color:#f29668>..</span><span style=font-style:italic;color:#39bae6>Default</span><span style=color:#f29668>::</span><span>default()
+</span><span>        }
+</span><span>    )</span><span style=color:#bfbab0cc>;
+</span><span>}
+</span></code></pre><p>In both constructors, we only initialize one param (<code>param3</code> and <code>param2</code>), they are very useful in simple cases.<h2 id=builder-pattern>Builder pattern</h2><p>Other useful design pattern is the famous <code>builder</code> pattern. It provides flexibility in the creation of the instances that avoids the construction of invalid objects (instances that can not exist as an entity). Here we have an example:<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>derive</span><span>(Default)]
+</span><span style=color:#ff7733>struct </span><span style=color:#59c2ff>ExampleBuilder </span><span>{
+</span><span>    param</span><span style=color:#bfbab0cc>:</span><span> String,
+</span><span>    param2</span><span style=color:#bfbab0cc>: </span><span style=color:#ff7733>u32</span><span>,
+</span><span>    param3</span><span style=color:#bfbab0cc>:</span><span> String,
+</span><span>    optional</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>Option</span><span><</span><span style=font-style:italic;color:#39bae6>String</span><span>>,
+</span><span>    optional2</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>Option</span><span><</span><span style=font-style:italic;color:#39bae6>String</span><span>>,
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>impl </span><span style=color:#59c2ff>ExampleBuilder </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>new</span><span>(</span><span style=color:#f29718>param</span><span style=color:#bfbab0cc>:</span><span> String, </span><span style=color:#f29718>param2</span><span style=color:#bfbab0cc>: </span><span style=color:#ff7733>u32</span><span>, </span><span style=color:#f29718>param3</span><span style=color:#bfbab0cc>:</span><span> String) </span><span style=color:#bfbab0cc>-> </span><span style=color:#ff7733>Self </span><span>{
+</span><span>        ExampleBuilder {
+</span><span>            param</span><span style=color:#bfbab0cc>,
+</span><span>            param2</span><span style=color:#bfbab0cc>,
+</span><span>            param3</span><span style=color:#bfbab0cc>,
+</span><span>            </span><span style=color:#f29668>..</span><span style=font-style:italic;color:#39bae6>Default</span><span style=color:#f29668>::</span><span>default()
+</span><span>        }
+</span><span>    }
+</span><span>    </span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>optional</span><span>(</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>optional</span><span style=color:#bfbab0cc>:</span><span> String) </span><span style=color:#bfbab0cc>-> </span><span style=color:#ff7733>Self </span><span>{
+</span><span>        </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>optional </span><span style=color:#f29668>= </span><span style=font-style:italic;color:#39bae6>Some</span><span>(optional)</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=color:#ff7733>return </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>    </span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>optional2</span><span>(</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>optional2</span><span style=color:#bfbab0cc>:</span><span> String) </span><span style=color:#bfbab0cc>-> </span><span style=color:#ff7733>Self </span><span>{
+</span><span>        </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>optional2 </span><span style=color:#f29668>= </span><span style=font-style:italic;color:#39bae6>Some</span><span>(optional2)</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=color:#ff7733>return </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>    </span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>build</span><span>(</span><span style=color:#f29718>self</span><span>) </span><span style=color:#bfbab0cc>-></span><span> Example {
+</span><span>        Example {
+</span><span>            param</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>param</span><span style=color:#bfbab0cc>,
+</span><span>            param2</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>param2</span><span style=color:#bfbab0cc>,
+</span><span>            param3</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>param3</span><span style=color:#bfbab0cc>,
+</span><span>            optional</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>optional</span><span style=color:#bfbab0cc>,
+</span><span>            optional2</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>optional2</span><span style=color:#bfbab0cc>,
+</span><span>        }
+</span><span>    }
+</span></code></pre><p>It forces to include to add the mandatory parameters with the <code>new</code> function... The builder pattern would create a consistent object in any step... Furthermore, if we want to include some of the optional parameters, we use <code>optional</code> or <code>optional2</code> functions. Ideally, in the last step, calling the <code>build</code> function, it can includes the necessary post steps. Then, the creation step will be:<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span>    </span><span style=color:#ff7733>let</span><span> example </span><span style=color:#f29668>= </span><span>ExampleBuilder</span><span style=color:#f29668>::</span><span>new(</span><span style=color:#c2d94c>"param1"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>()</span><span style=color:#bfbab0cc>, </span><span style=color:#f29718>1</span><span style=color:#bfbab0cc>, </span><span style=color:#c2d94c>"param3"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>())</span><span style=color:#f29668>.</span><span style=color:#f07178>build</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=font-style:italic;color:#5c6773>//Setting up optional parameters
+</span><span>    </span><span style=color:#ff7733>let</span><span> example2 </span><span style=color:#f29668>= </span><span>ExampleBuilder</span><span style=color:#f29668>::</span><span>new(</span><span style=color:#c2d94c>"param1"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>()</span><span style=color:#bfbab0cc>, </span><span style=color:#f29718>1</span><span style=color:#bfbab0cc>, </span><span style=color:#c2d94c>"param3"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>())
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>optional</span><span>(</span><span style=color:#c2d94c>"option1"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>())
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>optional2</span><span>(</span><span style=color:#c2d94c>"option2"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>())
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>build</span><span>()</span><span style=color:#bfbab0cc>;
+</span></code></pre></section></article></main></div>

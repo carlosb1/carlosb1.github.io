@@ -1,0 +1,61 @@
+<!doctype html><html class="dark light"><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><title>
+         Polymorphism example
+        
+    </title><meta content="Polymorphism example" property=og:title><link href=/icon/favicon.png rel=icon type=image/png><link href=https://carlosb1.github.io/fonts.css rel=stylesheet><link title="Carlos Baez" href=https://carlosb1.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://carlosb1.github.io/theme/light.css rel=stylesheet><link href=https://carlosb1.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><link href=https://carlosb1.github.io/main.css media=screen rel=stylesheet><script src=https://carlosb1.github.io/js/feather.min.js></script><body><div class=content><header><div class=main><a href=https://carlosb1.github.io>Carlos Baez</a><div class=socials><a class=social href=mailto:carlos.baezruiz@gmail.com rel=me> <img alt=email src=/social_icons/email.svg> </a><a class=social href=https://github.com/carlosb1/ rel=me> <img alt=github src=/social_icons/github.svg> </a></div></div><nav><a href=/posts style=margin-left:.7em>/posts</a><a href=/projects style=margin-left:.7em>/projects</a><a href=/personal style=margin-left:.7em>/personal</a><a href=/about style=margin-left:.7em>/about</a></nav><nav>| <a href id=dark-mode-toggle onclick=toggleTheme()></a><script src=https://carlosb1.github.io/js/themetoggle.js></script></nav></header><main><article><div class=title><div class=page-header>Polymorphism example<span class=primary-color style=font-size:1.6em>.</span></div><div class=meta>Posted on <time>2023-08-30</time></div></div><section class=body><p>It is possible have confusion about Polymorphism in Rust... Some people can think that it is not possible and they are only for dynamic languages, where the object's size and its reference doesn't to be known in the compilation step.<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#ff7733>use </span><span>std</span><span style=color:#f29668>::</span><span>rc</span><span style=color:#f29668>::</span><span>Rc</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>derive</span><span>(Copy</span><span style=color:#bfbab0cc>,</span><span> Clone)]
+</span><span style=color:#ff7733>struct </span><span style=color:#59c2ff>Pig </span><span>{
+</span><span>    name</span><span style=color:#bfbab0cc>: </span><span style=color:#f29668>&</span><span style=color:#ff7733>'static str
+</span><span>}
+</span><span>
+</span><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>derive</span><span>(Copy</span><span style=color:#bfbab0cc>,</span><span> Clone)]
+</span><span style=color:#ff7733>struct </span><span style=color:#59c2ff>Dog </span><span>{
+</span><span>    name</span><span style=color:#bfbab0cc>: </span><span style=color:#f29668>&</span><span style=color:#ff7733>'static str
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>trait </span><span style=color:#59c2ff>Animal </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>sound</span><span>(</span><span style=color:#f29668>&</span><span style=color:#f29718>self</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>impl </span><span>Animal </span><span style=color:#ff7733>for </span><span style=color:#59c2ff>Pig </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>sound</span><span>(</span><span style=color:#f29668>&</span><span style=color:#f29718>self</span><span>) {
+</span><span>        </span><span style=color:#f07178>println!</span><span>(</span><span style=color:#c2d94c>"this is a </span><span style=color:#f29718>{}</span><span style=color:#c2d94c> pig"</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>name)</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>impl </span><span>Animal </span><span style=color:#ff7733>for </span><span style=color:#59c2ff>Dog </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>sound</span><span>(</span><span style=color:#f29668>&</span><span style=color:#f29718>self</span><span>) {
+</span><span>        </span><span style=color:#f07178>println!</span><span>(</span><span style=color:#c2d94c>"this is a </span><span style=color:#f29718>{}</span><span style=color:#c2d94c> dog"</span><span style=color:#bfbab0cc>, </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>name)</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>
+</span><span style=color:#ff7733>struct </span><span style=color:#59c2ff>Farm </span><span>{
+</span><span>    animal</span><span style=color:#bfbab0cc>: </span><span>Rc&LTdyn Animal>,
+</span><span>}
+</span><span style=color:#ff7733>impl </span><span style=color:#59c2ff>Farm </span><span>{
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>hello_farm</span><span>(</span><span style=color:#f29668>&</span><span style=color:#f29718>self</span><span>) {
+</span><span>        </span><span style=font-style:italic;color:#39bae6>self</span><span style=color:#f29668>.</span><span>animal</span><span style=color:#f29668>.</span><span style=color:#f07178>sound</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span>
+</span><span style=color:#ff7733>struct </span><span style=color:#59c2ff>Family </span><span>{
+</span><span>   animal</span><span style=color:#bfbab0cc>: </span><span>Rc&LTdyn Animal> 
+</span><span>}
+</span></code></pre><pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#ff7733>fn </span><span style=color:#ffb454>main </span><span>() {
+</span><span>    </span><span style=color:#ff7733>let</span><span> pig </span><span style=color:#f29668>=</span><span> Pig{name</span><span style=color:#bfbab0cc>: </span><span style=color:#c2d94c>"pig1"</span><span>}</span><span style=color:#bfbab0cc>;
+</span><span>    pig</span><span style=color:#f29668>.</span><span style=color:#f07178>sound</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> dog </span><span style=color:#f29668>=</span><span> Dog{name</span><span style=color:#bfbab0cc>: </span><span style=color:#c2d94c>"dog1"</span><span>}</span><span style=color:#bfbab0cc>;
+</span><span>    dog</span><span style=color:#f29668>.</span><span style=color:#f07178>sound</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> ref_pig </span><span style=color:#f29668>= </span><span>Rc</span><span style=color:#f29668>::</span><span>new(pig)</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> farm </span><span style=color:#f29668>=</span><span> Farm{animal</span><span style=color:#bfbab0cc>:</span><span> ref_pig</span><span style=color:#f29668>.</span><span style=color:#f07178>clone</span><span>()}</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> farm2 </span><span style=color:#f29668>=</span><span> Farm{animal</span><span style=color:#bfbab0cc>:</span><span> ref_pig</span><span style=color:#f29668>.</span><span style=color:#f07178>clone</span><span>()}</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> farm3 </span><span style=color:#f29668>=</span><span> Farm{animal</span><span style=color:#bfbab0cc>: </span><span>Rc</span><span style=color:#f29668>::</span><span>new(dog)}</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    farm</span><span style=color:#f29668>.</span><span style=color:#f07178>hello_farm</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    farm2</span><span style=color:#f29668>.</span><span style=color:#f07178>hello_farm</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    farm3</span><span style=color:#f29668>.</span><span style=color:#f07178>hello_farm</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>}
+</span></code></pre><p>The question is how does it work? Easy, all these objects are saved in the heap memory.. <code>Rc</code> works a a reference to this memory space... In this case, Rust confidences in the <code>Rc</code>, you only requirement as a good practice it is to specify as <code>dyn</code> the traits.</section></article></main></div>

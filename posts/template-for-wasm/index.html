@@ -1,0 +1,113 @@
+<!doctype html><html class="dark light"><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><title>
+         Template for WASM with a WebWorker
+        
+    </title><meta content="Template for WASM with a WebWorker" property=og:title><link href=/icon/favicon.png rel=icon type=image/png><link href=https://carlosb1.github.io/fonts.css rel=stylesheet><link title="Carlos Baez" href=https://carlosb1.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://carlosb1.github.io/theme/light.css rel=stylesheet><link href=https://carlosb1.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><link href=https://carlosb1.github.io/main.css media=screen rel=stylesheet><script src=https://carlosb1.github.io/js/feather.min.js></script><body><div class=content><header><div class=main><a href=https://carlosb1.github.io>Carlos Baez</a><div class=socials><a class=social href=mailto:carlos.baezruiz@gmail.com rel=me> <img alt=email src=/social_icons/email.svg> </a><a class=social href=https://github.com/carlosb1/ rel=me> <img alt=github src=/social_icons/github.svg> </a></div></div><nav><a href=/posts style=margin-left:.7em>/posts</a><a href=/projects style=margin-left:.7em>/projects</a><a href=/personal style=margin-left:.7em>/personal</a><a href=/about style=margin-left:.7em>/about</a></nav><nav>| <a href id=dark-mode-toggle onclick=toggleTheme()></a><script src=https://carlosb1.github.io/js/themetoggle.js></script></nav></header><main><article><div class=title><div class=page-header>Template for WASM with a WebWorker<span class=primary-color style=font-size:1.6em>.</span></div><div class=meta>Posted on <time>2023-09-01</time></div></div><section class=body><p>One of the main rust ecosystem is the webassembly technology. <code>wasm-bindgen</code> and <code>wasm-pack</code> eases a lot the development process and includes a good set of libraries to work with different concepts (<code>webgl</code>, <code>websys</code>, <code>websockets</code>, <code>web workers</code> for example)... Here we can check a easy example about how to implement a web worker, it is incredible easy:<p>In the Rust side, we have this:<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>wasm_bindgen</span><span>(start)]
+</span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>init</span><span>() </span><span style=color:#bfbab0cc>-> </span><span style=font-style:italic;color:#39bae6>Result</span><span><(), JsValue> {
+</span><span>    wasm_logger</span><span style=color:#f29668>::</span><span>init(wasm_logger</span><span style=color:#f29668>::</span><span>Config</span><span style=color:#f29668>::</span><span>default())</span><span style=color:#bfbab0cc>;
+</span><span>    std</span><span style=color:#f29668>::</span><span>panic</span><span style=color:#f29668>::</span><span>set_hook(</span><span style=font-style:italic;color:#39bae6>Box</span><span style=color:#f29668>::</span><span>new(console_error_panic_hook</span><span style=color:#f29668>::</span><span>hook))</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(())
+</span><span>}
+</span><span>
+</span><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>wasm_bindgen</span><span>]
+</span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>run</span><span>() </span><span style=color:#bfbab0cc>-> </span><span style=font-style:italic;color:#39bae6>Result</span><span><(), JsValue> {
+</span><span>    log</span><span style=color:#f29668>::</span><span>info</span><span style=color:#f29668>!</span><span>(</span><span style=color:#c2d94c>"Starting main function"</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> worker </span><span style=color:#f29668>= </span><span>web_sys</span><span style=color:#f29668>::</span><span>Worker</span><span style=color:#f29668>::</span><span>new(</span><span style=color:#c2d94c>"./worker.js"</span><span>)</span><span style=color:#f29668>.</span><span style=color:#f07178>unwrap</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>let</span><span> onmessage </span><span style=color:#f29668>= </span><span style=color:#f07178>get_on_msg_callback</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=font-style:italic;color:#5c6773>// my callback from the worker
+</span><span>    worker</span><span style=color:#f29668>.</span><span style=color:#f07178>set_onmessage</span><span>(</span><span style=font-style:italic;color:#39bae6>Some</span><span>(onmessage</span><span style=color:#f29668>.</span><span style=color:#f07178>as_ref</span><span>()</span><span style=color:#f29668>.</span><span style=color:#f07178>unchecked_ref</span><span>()))</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=font-style:italic;color:#5c6773>//send message to worker
+</span><span>    worker
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>post_message</span><span>(</span><span style=color:#f29668>&</span><span>JsValue</span><span style=color:#f29668>::</span><span>from(</span><span style=color:#f29718>1.0</span><span>))
+</span><span>        </span><span style=color:#f29668>.</span><span style=color:#f07178>expect</span><span>(</span><span style=color:#c2d94c>"failed to post"</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>    std</span><span style=color:#f29668>::</span><span>mem</span><span style=color:#f29668>::</span><span>forget(onmessage)</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(())
+</span><span>}
+</span></code></pre><p>We define two functions, the first one with <code>#[wasm_bindgen(start)]</code> marks the function as the initialization function that it is called in the loading step. <code>run</code> is tagged with <code>#[wasm_bindgen]</code> that it exposes the function outside the rust code. If you check <code>run</code>, the <code>set_onmessage</code> accepts a closure function as a callback from Javascript. Furthemore, from <code>post_message</code>, we can send messages to the Web Worker in the Javascript side.<p>From the javascript Web Worker we can trigger message in Rust. Here the Rust code:<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>wasm_bindgen</span><span>]
+</span><span style=color:#ff7733>pub struct </span><span style=color:#59c2ff>MyWorker </span><span>{}
+</span><span>
+</span><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>wasm_bindgen</span><span>]
+</span><span style=color:#ff7733>impl </span><span style=color:#59c2ff>MyWorker </span><span>{
+</span><span>    </span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>new</span><span>() </span><span style=color:#bfbab0cc>-></span><span> MyWorker {
+</span><span>        MyWorker {}
+</span><span>    }
+</span><span>
+</span><span>    </span><span style=color:#ff7733>pub fn </span><span style=color:#ffb454>hello_world</span><span>(</span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>name</span><span style=color:#bfbab0cc>:</span><span> String) </span><span style=color:#bfbab0cc>-></span><span> String {
+</span><span>        wasm_logger</span><span style=color:#f29668>::</span><span>init(wasm_logger</span><span style=color:#f29668>::</span><span>Config</span><span style=color:#f29668>::</span><span>default())</span><span style=color:#bfbab0cc>;
+</span><span>        log</span><span style=color:#f29668>::</span><span>info</span><span style=color:#f29668>!</span><span>(</span><span style=color:#c2d94c>"Hello world my friend {:?}"</span><span style=color:#bfbab0cc>,</span><span> name)</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=color:#ff7733>return </span><span style=color:#c2d94c>"Hello world response"</span><span style=color:#f29668>.</span><span style=color:#f07178>to_string</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style=font-style:italic;color:#5c6773>///// Create a closure to act on the message returned by the worker
+</span><span style=color:#ff7733>fn </span><span style=color:#ffb454>get_on_msg_callback</span><span>() </span><span style=color:#bfbab0cc>-> </span><span>Closure&LTdyn </span><span style=font-style:italic;color:#39bae6>FnMut</span><span>(MessageEvent)> {
+</span><span>    Closure</span><span style=color:#f29668>::</span><span>new(</span><span style=color:#ff7733>move </span><span style=color:#f29668>|</span><span>event</span><span style=color:#bfbab0cc>:</span><span> MessageEvent</span><span style=color:#f29668>| </span><span>{
+</span><span>        log</span><span style=color:#f29668>::</span><span>info</span><span style=color:#f29668>!</span><span>(</span><span style=color:#c2d94c>"Received response: {:?}"</span><span style=color:#bfbab0cc>, </span><span style=color:#f29668>&</span><span>event</span><span style=color:#f29668>.</span><span style=color:#f07178>data</span><span>())</span><span style=color:#bfbab0cc>;
+</span><span>    })
+</span><span>}
+</span></code></pre><p>You can check, how we created a worker function with name <code>hello_world</code> that it can be called from javascript.<p>For the Javascript part, we have the <code>index.html</code> and the <code>worker.js</code>:<pre class=language-html data-lang=html style=background:#0f1419;color:#bfbab0><code class=language-html data-lang=html><span style=color:#39bae690>&LT!</span><span style=color:#ff7733>DOCTYPE </span><span style=color:#f29718>html</span><span style=color:#39bae690>>
+</span><span style=color:#39bae690><</span><span style=color:#59c2ff>html</span><span style=color:#39bae690>>
+</span><span>
+</span><span style=color:#39bae690><</span><span style=color:#59c2ff>head</span><span style=color:#39bae690>>
+</span><span>    </span><span style=color:#39bae690><</span><span style=color:#59c2ff>meta </span><span style=color:#ffb454>content</span><span style=color:#bfbab0cc>=</span><span style=color:#c2d94c>"text/html;charset=utf-8" </span><span style=color:#ffb454>http-equiv</span><span style=color:#bfbab0cc>=</span><span style=color:#c2d94c>"Content-Type"</span><span style=color:#39bae690>/>
+</span><span>    </span><span style=color:#39bae690><</span><span style=color:#59c2ff>style</span><span style=color:#39bae690>>
+</span><span>        </span><span style=color:#59c2ff>body </span><span>{
+</span><span>            </span><span style=color:#39bae6>margin</span><span style=color:#bfbab0cc>: </span><span style=color:#f29718>0</span><span style=color:#ff7733>px</span><span style=color:#bfbab0cc>;
+</span><span>            </span><span style=color:#39bae6>padding</span><span style=color:#bfbab0cc>: </span><span style=color:#f29718>0</span><span style=color:#ff7733>px</span><span style=color:#bfbab0cc>;
+</span><span>        }
+</span><span>        </span><span style=color:#59c2ff>canvas</span><span style=color:#ffb454>#my_canvas </span><span>{
+</span><span>			</span><span style=color:#39bae6>position</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#f29668>absolute</span><span style=color:#bfbab0cc>;
+</span><span>            </span><span style=color:#39bae6>width</span><span style=color:#bfbab0cc>: </span><span style=color:#f29718>100</span><span style=color:#ff7733>%</span><span style=color:#bfbab0cc>;
+</span><span>            </span><span style=color:#39bae6>height</span><span style=color:#bfbab0cc>: </span><span style=color:#f29718>100</span><span style=color:#ff7733>%</span><span style=color:#bfbab0cc>;
+</span><span>        }
+</span><span>    </span><span style=color:#39bae690>&LT/</span><span style=color:#59c2ff>style</span><span style=color:#39bae690>>
+</span><span style=color:#39bae690>&LT/</span><span style=color:#59c2ff>head</span><span style=color:#39bae690>>
+</span><span>
+</span><span style=color:#39bae690><</span><span style=color:#59c2ff>body</span><span style=color:#39bae690>>
+</span><span>
+</span><span style=color:#39bae690><</span><span style=color:#59c2ff>div </span><span style=color:#ffb454>style</span><span style=color:#bfbab0cc>=</span><span style=color:#c2d94c>"</span><span style=color:#39bae6>max-height</span><span style=color:#bfbab0cc>: </span><span style=color:#f29718>256</span><span style=color:#ff7733>px</span><span style=color:#bfbab0cc>;</span><span style=color:#39bae6>max-width</span><span style=color:#bfbab0cc>:</span><span style=color:#f29718>256</span><span style=color:#ff7733>px</span><span style=color:#bfbab0cc>;</span><span style=color:#39bae6>overflow</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#f29668>scroll</span><span style=color:#bfbab0cc>;</span><span style=color:#c2d94c>"</span><span style=color:#39bae690>>
+</span><span>    </span><span style=color:#39bae690><</span><span style=color:#59c2ff>canvas </span><span style=color:#ffb454>id</span><span style=color:#bfbab0cc>=</span><span style=color:#c2d94c>"my_canvas"</span><span style=color:#39bae690>>&LT/</span><span style=color:#59c2ff>canvas</span><span style=color:#39bae690>>
+</span><span style=color:#39bae690>&LT/</span><span style=color:#59c2ff>div</span><span style=color:#39bae690>>
+</span><span>
+</span><span style=color:#39bae690><</span><span style=color:#59c2ff>script </span><span style=color:#ffb454>src</span><span style=color:#bfbab0cc>=</span><span style=color:#c2d94c>"pkg/my_webgl_app.js"</span><span style=color:#39bae690>>&LT/</span><span style=color:#59c2ff>script</span><span style=color:#39bae690>>
+</span><span>
+</span><span style=color:#39bae690><</span><span style=color:#59c2ff>script</span><span style=color:#39bae690>>
+</span><span>    </span><span style=color:#ff7733>const </span><span>{main} </span><span style=color:#f29668>= </span><span>wasm_bindgen</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>async function </span><span style=color:#ffb454>run</span><span>() {
+</span><span>            </span><span style=color:#ff7733>await </span><span style=color:#ffb454>wasm_bindgen</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>            </span><span style=color:#ffb454>main</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>    </span><span style=color:#ffb454>run</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span style=color:#39bae690>&LT/</span><span style=color:#59c2ff>script</span><span style=color:#39bae690>>
+</span><span>
+</span><span style=color:#39bae690>&LT/</span><span style=color:#59c2ff>body</span><span style=color:#39bae690>>
+</span><span style=color:#39bae690>&LT/</span><span style=color:#59c2ff>html</span><span style=color:#39bae690>>
+</span></code></pre><pre class=language-javascript data-lang=javascript style=background:#0f1419;color:#bfbab0><code class=language-javascript data-lang=javascript><span style=font-style:italic;color:#5c6773>// worker.js
+</span><span style=color:#ffb454>importScripts</span><span>(</span><span style=color:#c2d94c>"./pkg/my_webgl_app.js"</span><span>)</span><span style=color:#bfbab0cc>; </span><span style=font-style:italic;color:#5c6773>//generated wasm code, the name depends on project
+</span><span>
+</span><span style=font-style:italic;color:#39bae6>console</span><span style=color:#f29668>.</span><span style=color:#f07178>log</span><span>(</span><span style=color:#c2d94c>"Initializing worker"</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=font-style:italic;color:#5c6773>// In the worker, we have a different struct that we want to use as in
+</span><span style=font-style:italic;color:#5c6773>// `index.js`.
+</span><span>
+</span><span style=color:#ff7733>async function </span><span style=color:#ffb454>init_wasm_in_worker</span><span>() {
+</span><span>  self</span><span style=color:#f29668>.</span><span style=color:#ffb454>onmessage </span><span style=color:#f29668>= </span><span style=color:#ff7733>async </span><span>(</span><span style=color:#f29718>event</span><span>) </span><span style=color:#ff7733>=> </span><span>{
+</span><span>    </span><span style=color:#ff7733>await </span><span style=color:#ffb454>wasm_bindgen</span><span>(</span><span style=color:#c2d94c>"./pkg/my_webgl_app_bg.wasm"</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>const </span><span>{ MyWorker } </span><span style=color:#f29668>= </span><span>wasm_bindgen</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>var </span><span>my_worker </span><span style=color:#f29668>= </span><span>MyWorker</span><span style=color:#f29668>.</span><span style=color:#ffb454>new</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#ff7733>var </span><span>hello </span><span style=color:#f29668>= </span><span>my_worker</span><span style=color:#f29668>.</span><span style=color:#ffb454>hello_world</span><span>(</span><span style=color:#c2d94c>"john"</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=font-style:italic;color:#39bae6>console</span><span style=color:#f29668>.</span><span style=color:#f07178>log</span><span>(</span><span style=color:#c2d94c>"please "</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=font-style:italic;color:#39bae6>console</span><span style=color:#f29668>.</span><span style=color:#f07178>log</span><span>(hello)</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=font-style:italic;color:#5c6773>// Send response back to be handled by callback in main thread.
+</span><span>
+</span><span>    </span><span style=color:#f07178>setInterval</span><span>(() </span><span style=color:#ff7733>=> </span><span>{
+</span><span>      </span><span style=font-style:italic;color:#5c6773>//postMessage();
+</span><span>      self</span><span style=color:#f29668>.</span><span style=color:#f07178>postMessage</span><span>(</span><span style=color:#c2d94c>"returns message"</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>    }</span><span style=color:#bfbab0cc>, </span><span style=color:#f29718>500</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>  }</span><span style=color:#bfbab0cc>;
+</span><span>}
+</span><span>
+</span><span style=color:#ffb454>init_wasm_in_worker</span><span>()</span><span style=color:#bfbab0cc>;
+</span></code></pre></section></article></main></div>

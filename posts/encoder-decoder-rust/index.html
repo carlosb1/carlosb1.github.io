@@ -1,0 +1,127 @@
+<!doctype html><html class="dark light"><head><meta charset=UTF-8><meta content="IE=edge" http-equiv=X-UA-Compatible><meta content="width=device-width,initial-scale=1.0" name=viewport><title>
+         Implement an encoder/decoder for tokio
+        
+    </title><meta content="Implement an encoder/decoder for tokio" property=og:title><link href=/icon/favicon.png rel=icon type=image/png><link href=https://carlosb1.github.io/fonts.css rel=stylesheet><link title="Carlos Baez" href=https://carlosb1.github.io/atom.xml rel=alternate type=application/atom+xml><link href=https://carlosb1.github.io/theme/light.css rel=stylesheet><link href=https://carlosb1.github.io/theme/dark.css id=darkModeStyle rel=stylesheet><link href=https://carlosb1.github.io/main.css media=screen rel=stylesheet><script src=https://carlosb1.github.io/js/feather.min.js></script><body><div class=content><header><div class=main><a href=https://carlosb1.github.io>Carlos Baez</a><div class=socials><a class=social href=mailto:carlos.baezruiz@gmail.com rel=me> <img alt=email src=/social_icons/email.svg> </a><a class=social href=https://github.com/carlosb1/ rel=me> <img alt=github src=/social_icons/github.svg> </a></div></div><nav><a href=/posts style=margin-left:.7em>/posts</a><a href=/projects style=margin-left:.7em>/projects</a><a href=/personal style=margin-left:.7em>/personal</a><a href=/about style=margin-left:.7em>/about</a></nav><nav>| <a href id=dark-mode-toggle onclick=toggleTheme()></a><script src=https://carlosb1.github.io/js/themetoggle.js></script></nav></header><main><article><div class=title><div class=page-header>Implement an encoder/decoder for tokio<span class=primary-color style=font-size:1.6em>.</span></div><div class=meta>Posted on <time>2023-08-26</time></div></div><section class=body><p>A very useful module for <code>tokio</code> is <code>Encoder</code> and <code>Decoder</code> traits, they help you for parsing any type of message from <code>bytes</code> or <code>string</code> to any type. Here, we have an example where we receive bytes and we parse it to specific string format. It can be converted in another type... For example, <code>json</code> or use some serialization tool like <code>serde</code> or <code>protobuf</code><pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#ff7733>use </span><span>bytes</span><span style=color:#f29668>::</span><span>{Buf</span><span style=color:#bfbab0cc>,</span><span> BytesMut}</span><span style=color:#bfbab0cc>;
+</span><span style=color:#ff7733>use </span><span>tokio</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>{AsyncReadExt</span><span style=color:#bfbab0cc>,</span><span> AsyncWriteExt}</span><span style=color:#bfbab0cc>;
+</span><span style=color:#ff7733>use </span><span>tokio</span><span style=color:#f29668>::</span><span>net</span><span style=color:#f29668>::</span><span>TcpListener</span><span style=color:#bfbab0cc>;
+</span><span style=color:#ff7733>use </span><span>tokio_util</span><span style=color:#f29668>::</span><span>codec</span><span style=color:#f29668>::</span><span>Decoder</span><span style=color:#bfbab0cc>;
+</span><span style=color:#ff7733>use </span><span>tokio_util</span><span style=color:#f29668>::</span><span>codec</span><span style=color:#f29668>::</span><span>Encoder</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#ff7733>struct </span><span style=color:#59c2ff>MyStringDecoder </span><span>{}
+</span><span>
+</span><span style=color:#ff7733>const </span><span style=color:#f29718>MAX</span><span style=color:#bfbab0cc>: </span><span style=color:#ff7733>usize </span><span style=color:#f29668>= </span><span style=color:#f29718>8 </span><span style=color:#f29668>* </span><span style=color:#f29718>1024 </span><span style=color:#f29668>* </span><span style=color:#f29718>1024</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#ff7733>impl </span><span>Decoder </span><span style=color:#ff7733>for </span><span style=color:#59c2ff>MyStringDecoder </span><span>{
+</span><span>    </span><span style=color:#ff7733>type </span><span style=color:#59c2ff>Item </span><span style=color:#f29668>= </span><span style=font-style:italic;color:#39bae6>String</span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>type </span><span style=color:#59c2ff>Error </span><span style=color:#f29668>= </span><span>std</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>Error</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>decode</span><span>(</span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>src</span><span style=color:#bfbab0cc>: </span><span style=color:#f29668>&</span><span style=color:#ff7733>mut</span><span> BytesMut) </span><span style=color:#bfbab0cc>-> </span><span style=font-style:italic;color:#39bae6>Result</span><span><</span><span style=font-style:italic;color:#39bae6>Option</span><span><</span><span style=color:#ff7733>Self</span><span style=color:#f29668>::</span><span>Item>, </span><span style=color:#ff7733>Self</span><span style=color:#f29668>::</span><span>Error> {
+</span><span>        </span><span style=color:#ff7733>if</span><span> src</span><span style=color:#f29668>.</span><span style=color:#f07178>len</span><span>() </span><span style=color:#f29668>< </span><span style=color:#f29718>4 </span><span>{
+</span><span>            </span><span style=font-style:italic;color:#5c6773>// Not enough data to read length marker.
+</span><span>            </span><span style=color:#ff7733>return </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(</span><span style=font-style:italic;color:#39bae6>None</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>        }
+</span><span>
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// Read length marker.
+</span><span>        </span><span style=color:#ff7733>let mut</span><span> length_bytes </span><span style=color:#f29668>= </span><span>[</span><span style=color:#f29718>0</span><span style=color:#ff7733>u8</span><span style=color:#bfbab0cc>; </span><span style=color:#f29718>4</span><span>]</span><span style=color:#bfbab0cc>;
+</span><span>        length_bytes</span><span style=color:#f29668>.</span><span style=color:#f07178>copy_from_slice</span><span>(</span><span style=color:#f29668>&</span><span>src[</span><span style=color:#f29668>..</span><span style=color:#f29718>4</span><span>])</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=color:#ff7733>let</span><span> length </span><span style=color:#f29668>= </span><span style=color:#ff7733>u32</span><span style=color:#f29668>::</span><span>from_le_bytes(length_bytes) </span><span style=color:#f29668>as </span><span style=color:#ff7733>usize</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// Check that the length is not too large to avoid a denial of
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// service attack where the server runs out of memory.
+</span><span>        </span><span style=color:#ff7733>if</span><span> length </span><span style=color:#f29668>> </span><span style=color:#f29718>MAX </span><span>{
+</span><span>            </span><span style=color:#ff7733>return </span><span style=font-style:italic;color:#39bae6>Err</span><span>(std</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>Error</span><span style=color:#f29668>::</span><span>new(
+</span><span>                std</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>ErrorKind</span><span style=color:#f29668>::</span><span>InvalidData</span><span style=color:#bfbab0cc>,
+</span><span>                </span><span style=color:#f07178>format!</span><span>(</span><span style=color:#c2d94c>"Frame of length </span><span style=color:#f29718>{}</span><span style=color:#c2d94c> is too large."</span><span style=color:#bfbab0cc>,</span><span> length)</span><span style=color:#bfbab0cc>,
+</span><span>            ))</span><span style=color:#bfbab0cc>;
+</span><span>        }
+</span><span>
+</span><span>        </span><span style=color:#ff7733>if</span><span> src</span><span style=color:#f29668>.</span><span style=color:#f07178>len</span><span>() </span><span style=color:#f29668>< </span><span style=color:#f29718>4 </span><span style=color:#f29668>+</span><span> length {
+</span><span>            </span><span style=font-style:italic;color:#5c6773>// The full string has not yet arrived.
+</span><span>            </span><span style=font-style:italic;color:#5c6773>//
+</span><span>            </span><span style=font-style:italic;color:#5c6773>// We reserve more space in the buffer. This is not strictly
+</span><span>            </span><span style=font-style:italic;color:#5c6773>// necessary, but is a good idea performance-wise.
+</span><span>            src</span><span style=color:#f29668>.</span><span style=color:#f07178>reserve</span><span>(</span><span style=color:#f29718>4 </span><span style=color:#f29668>+</span><span> length </span><span style=color:#f29668>-</span><span> src</span><span style=color:#f29668>.</span><span style=color:#f07178>len</span><span>())</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>            </span><span style=font-style:italic;color:#5c6773>// We inform the Framed that we need more bytes to form the next
+</span><span>            </span><span style=font-style:italic;color:#5c6773>// frame.
+</span><span>            </span><span style=color:#ff7733>return </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(</span><span style=font-style:italic;color:#39bae6>None</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>        }
+</span><span>
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// Use advance to modify src such that it no longer contains
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// this frame.
+</span><span>        </span><span style=color:#ff7733>let</span><span> data </span><span style=color:#f29668>=</span><span> src[</span><span style=color:#f29718>4</span><span style=color:#f29668>..</span><span style=color:#f29718>4 </span><span style=color:#f29668>+</span><span> length]</span><span style=color:#f29668>.</span><span style=color:#f07178>to_vec</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>        src</span><span style=color:#f29668>.</span><span style=color:#f07178>advance</span><span>(</span><span style=color:#f29718>4 </span><span style=color:#f29668>+</span><span> length)</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// Convert the data to a string, or fail if it is not valid utf-8.
+</span><span>        </span><span style=color:#ff7733>match </span><span style=font-style:italic;color:#39bae6>String</span><span style=color:#f29668>::</span><span>from_utf8(data) {
+</span><span>            </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(string) </span><span style=color:#f29668>=> </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(</span><span style=font-style:italic;color:#39bae6>Some</span><span>(string))</span><span style=color:#bfbab0cc>,
+</span><span>            </span><span style=font-style:italic;color:#39bae6>Err</span><span>(utf8_error) </span><span style=color:#f29668>=> </span><span style=font-style:italic;color:#39bae6>Err</span><span>(std</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>Error</span><span style=color:#f29668>::</span><span>new(
+</span><span>                std</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>ErrorKind</span><span style=color:#f29668>::</span><span>InvalidData</span><span style=color:#bfbab0cc>,
+</span><span>                utf8_error</span><span style=color:#f29668>.</span><span style=color:#f07178>utf8_error</span><span>()</span><span style=color:#bfbab0cc>,
+</span><span>            ))</span><span style=color:#bfbab0cc>,
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>struct </span><span style=color:#59c2ff>MyStringEncoder </span><span>{}
+</span><span>
+</span><span style=color:#ff7733>impl </span><span>Encoder<</span><span style=font-style:italic;color:#39bae6>String</span><span>> </span><span style=color:#ff7733>for </span><span style=color:#59c2ff>MyStringEncoder </span><span>{
+</span><span>    </span><span style=color:#ff7733>type </span><span style=color:#59c2ff>Error </span><span style=color:#f29668>= </span><span>std</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>Error</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>encode</span><span>(</span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>item</span><span style=color:#bfbab0cc>:</span><span> String, </span><span style=color:#f29718>dst</span><span style=color:#bfbab0cc>: </span><span style=color:#f29668>&</span><span style=color:#ff7733>mut</span><span> BytesMut) </span><span style=color:#bfbab0cc>-> </span><span style=font-style:italic;color:#39bae6>Result</span><span><(), </span><span style=color:#ff7733>Self</span><span style=color:#f29668>::</span><span>Error> {
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// Don't send a string if it is longer than the other end will
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// accept.
+</span><span>        </span><span style=color:#ff7733>if</span><span> item</span><span style=color:#f29668>.</span><span style=color:#f07178>len</span><span>() </span><span style=color:#f29668>> </span><span style=color:#f29718>MAX </span><span>{
+</span><span>            </span><span style=color:#ff7733>return </span><span style=font-style:italic;color:#39bae6>Err</span><span>(std</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>Error</span><span style=color:#f29668>::</span><span>new(
+</span><span>                std</span><span style=color:#f29668>::</span><span>io</span><span style=color:#f29668>::</span><span>ErrorKind</span><span style=color:#f29668>::</span><span>InvalidData</span><span style=color:#bfbab0cc>,
+</span><span>                </span><span style=color:#f07178>format!</span><span>(</span><span style=color:#c2d94c>"Frame of length </span><span style=color:#f29718>{}</span><span style=color:#c2d94c> is too large."</span><span style=color:#bfbab0cc>,</span><span> item</span><span style=color:#f29668>.</span><span style=color:#f07178>len</span><span>())</span><span style=color:#bfbab0cc>,
+</span><span>            ))</span><span style=color:#bfbab0cc>;
+</span><span>        }
+</span><span>
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// Convert the length into a byte array.
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// The cast to u32 cannot overflow due to the length check above.
+</span><span>        </span><span style=color:#ff7733>let</span><span> len_slice </span><span style=color:#f29668>= </span><span style=color:#ff7733>u32</span><span style=color:#f29668>::</span><span>to_le_bytes(item</span><span style=color:#f29668>.</span><span style=color:#f07178>len</span><span>() </span><span style=color:#f29668>as </span><span style=color:#ff7733>u32</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// Reserve space in the buffer.
+</span><span>        dst</span><span style=color:#f29668>.</span><span style=color:#f07178>reserve</span><span>(</span><span style=color:#f29718>4 </span><span style=color:#f29668>+</span><span> item</span><span style=color:#f29668>.</span><span style=color:#f07178>len</span><span>())</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=font-style:italic;color:#5c6773>// Write the length and string to the buffer.
+</span><span>        dst</span><span style=color:#f29668>.</span><span style=color:#f07178>extend_from_slice</span><span>(</span><span style=color:#f29668>&</span><span>len_slice)</span><span style=color:#bfbab0cc>;
+</span><span>        dst</span><span style=color:#f29668>.</span><span style=color:#f07178>extend_from_slice</span><span>(item</span><span style=color:#f29668>.</span><span style=color:#f07178>as_bytes</span><span>())</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(())
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style=color:#bfbab0cc>#</span><span>[</span><span style=color:#ffb454>tokio</span><span>::</span><span style=color:#ffb454>main</span><span>]
+</span><span>async </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>main</span><span>() </span><span style=color:#bfbab0cc>-> </span><span style=font-style:italic;color:#39bae6>Result</span><span><(), </span><span style=font-style:italic;color:#39bae6>Box</span><span>&LTdyn std</span><span style=color:#f29668>::</span><span>error</span><span style=color:#f29668>::</span><span>Error>> {
+</span><span>    </span><span style=color:#ff7733>let</span><span> listener </span><span style=color:#f29668>= </span><span>TcpListener</span><span style=color:#f29668>::</span><span>bind(</span><span style=color:#c2d94c>"127.0.0.1:4000"</span><span>)</span><span style=color:#f29668>.</span><span>await</span><span style=color:#f29668>?</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#ff7733>loop </span><span>{
+</span><span>        </span><span style=color:#ff7733>let </span><span>(</span><span style=color:#ff7733>mut</span><span> socket</span><span style=color:#bfbab0cc>, </span><span style=color:#f29668>_</span><span>) </span><span style=color:#f29668>=</span><span> listener</span><span style=color:#f29668>.</span><span style=color:#f07178>accept</span><span>()</span><span style=color:#f29668>.</span><span>await</span><span style=color:#f29668>?</span><span style=color:#bfbab0cc>;
+</span><span>    }
+</span><span>}
+</span></code></pre><p>We specify with type will receive <code>BytesMut</code> and in which format will be serialized <code>String</code>, inside the encoder and decoder function, it is include all the logic to create the correct String,<p>A minimum code snippet for working with <code>vec&LTu8></code> could be (take care, we don t check size of the streams):<pre class=language-Rust data-lang=Rust style=background:#0f1419;color:#bfbab0><code class=language-Rust data-lang=Rust><span style=color:#ff7733>pub struct </span><span style=color:#59c2ff>MyBytesCodec</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span style=color:#ff7733>impl </span><span>Decoder </span><span style=color:#ff7733>for </span><span style=color:#59c2ff>MyBytesCodec </span><span>{
+</span><span>    </span><span style=color:#ff7733>type </span><span style=color:#59c2ff>Item </span><span style=color:#f29668>= </span><span style=font-style:italic;color:#39bae6>Vec</span><span><</span><span style=color:#ff7733>u8</span><span>></span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>type </span><span style=color:#59c2ff>Error </span><span style=color:#f29668>= </span><span>io</span><span style=color:#f29668>::</span><span>Error</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>decode</span><span>(</span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>buf</span><span style=color:#bfbab0cc>: </span><span style=color:#f29668>&</span><span style=color:#ff7733>mut</span><span> BytesMut) </span><span style=color:#bfbab0cc>-> </span><span>io</span><span style=color:#f29668>::</span><span style=font-style:italic;color:#39bae6>Result</span><span><</span><span style=font-style:italic;color:#39bae6>Option</span><span><</span><span style=font-style:italic;color:#39bae6>Vec</span><span><</span><span style=color:#ff7733>u8</span><span>>>> {
+</span><span>        </span><span style=color:#ff7733>if</span><span> buf</span><span style=color:#f29668>.</span><span style=color:#f07178>len</span><span>() </span><span style=color:#f29668>== </span><span style=color:#f29718>0 </span><span>{
+</span><span>            </span><span style=color:#ff7733>return </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(</span><span style=font-style:italic;color:#39bae6>None</span><span>)</span><span style=color:#bfbab0cc>;
+</span><span>        }
+</span><span>        </span><span style=color:#ff7733>let</span><span> data </span><span style=color:#f29668>=</span><span> buf</span><span style=color:#f29668>.</span><span style=color:#f07178>clone</span><span>()</span><span style=color:#f29668>.</span><span style=color:#f07178>to_vec</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>        buf</span><span style=color:#f29668>.</span><span style=color:#f07178>clear</span><span>()</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(</span><span style=font-style:italic;color:#39bae6>Some</span><span>(data))
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style=color:#ff7733>impl </span><span>Encoder </span><span style=color:#ff7733>for </span><span style=color:#59c2ff>MyBytesCodec </span><span>{
+</span><span>    </span><span style=color:#ff7733>type </span><span style=color:#59c2ff>Item </span><span style=color:#f29668>= </span><span style=font-style:italic;color:#39bae6>Vec</span><span><</span><span style=color:#ff7733>u8</span><span>></span><span style=color:#bfbab0cc>;
+</span><span>    </span><span style=color:#ff7733>type </span><span style=color:#59c2ff>Error </span><span style=color:#f29668>= </span><span>io</span><span style=color:#f29668>::</span><span>Error</span><span style=color:#bfbab0cc>;
+</span><span>
+</span><span>    </span><span style=color:#ff7733>fn </span><span style=color:#ffb454>encode</span><span>(</span><span style=color:#f29668>&</span><span style=color:#ff7733>mut </span><span style=color:#f29718>self</span><span>, </span><span style=color:#f29718>data</span><span style=color:#bfbab0cc>: </span><span style=font-style:italic;color:#39bae6>Vec</span><span><</span><span style=color:#ff7733>u8</span><span>>, </span><span style=color:#f29718>buf</span><span style=color:#bfbab0cc>: </span><span style=color:#f29668>&</span><span style=color:#ff7733>mut</span><span> BytesMut) </span><span style=color:#bfbab0cc>-> </span><span>io</span><span style=color:#f29668>::</span><span style=font-style:italic;color:#39bae6>Result</span><span><()> {
+</span><span>        buf</span><span style=color:#f29668>.</span><span style=color:#f07178>extend</span><span>(data)</span><span style=color:#bfbab0cc>;
+</span><span>        </span><span style=font-style:italic;color:#39bae6>Ok</span><span>(())
+</span><span>    }
+</span><span>}
+</span></code></pre></section></article></main></div>
